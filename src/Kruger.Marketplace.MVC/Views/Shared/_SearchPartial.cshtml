@@ -1,0 +1,31 @@
+﻿@model Kruger.Marketplace.CrossCutting.ViewModels.Pagina.Search
+
+@{
+    <div class="row">
+
+        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+            <div class="pull-right">
+                <button onclick="window.location.href = '@Url.Action("Create", @Model.ControllerToRedirect)'; return false;" class="btn btn-outline-primary">
+                    <i class="fa fa-plus fa-with-text"></i><span> Cadastrar</span>
+                </button>
+                <button id="btnback" onclick="window.location.href = '@Url.Action("Index", "Home")'; return false;" class="btn btn-outline-secondary">
+                    <i class="fa fa-arrow-left fa-with-text"></i><span> Voltar</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+            <div id="custom-search-input">
+                <div class="input-group col-12">
+                    @Html.TextBox(@Model.SearchTitle, null, new { @class = "form-control input", @placeholder = "Pesquisar", autofocus = "", id = "txtsearch" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-outline-info" type="submit" data-toggle="tooltip" data-placement="right" title="Buscar">
+                            <small><i class="fa fa-search"></i></small>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
