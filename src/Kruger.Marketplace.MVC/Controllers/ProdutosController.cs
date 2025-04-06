@@ -9,19 +9,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Kruger.Marketplace.CrossCutting.Expressions;
 using Microsoft.AspNetCore.Authorization;
 using Kruger.Marketplace.CrossCutting.App;
+using Kruger.Marketplace.Business.Services.CadastroBasico;
+using Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Categoria;
 
 namespace Kruger.Marketplace.MVC.Controllers
 {
     [Authorize]
     [Route("produtos")]
     public class ProdutosController(IProdutoService produtoService,
+                                    ICategoriaService categoriaService,     
                                     IMapper mapper,
                                     INotificador notificador,
                                     IAppIdentityUser user) : MainController(notificador, user)
     {
         private readonly IProdutoService _produtoService = produtoService;
+        private readonly ICategoriaService _categoriaService = categoriaService;
         private readonly IMapper _mapper = mapper;
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string busca, int pageSize = 10, int pageNumber = 1, string orderBy = "nome")
         {
             var filter = new ProdutoFilter()
@@ -29,7 +34,8 @@ namespace Kruger.Marketplace.MVC.Controllers
                 Busca = busca,
                 PageNumber = pageNumber,
                 PageSize = pageSize,
-                OrderBy = orderBy
+                OrderBy = orderBy,                
+                VendedorId = UserId                
             };
 
             var predicate = ControllerExpression.GetFilterExpression(filter);
@@ -57,15 +63,18 @@ namespace Kruger.Marketplace.MVC.Controllers
         }
 
         [Route("novo")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var produtoViewModel = await PopularCategorias(new ProdutoViewModel());
+            return View(produtoViewModel);
         }
 
         [HttpPost("novo")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Nome,Descricao,Id,Estoque,Preco,CategoriaId,VendedorId,FileUpload")] ProdutoViewModel produtoViewModel)
         {
+            produtoViewModel = await PopularCategorias(produtoViewModel);
+
             if (!ModelState.IsValid)
                 return View(produtoViewModel);
 
@@ -129,7 +138,7 @@ namespace Kruger.Marketplace.MVC.Controllers
             {
                 GetErrorsFromNotificador();
 
-                return View(produtoViewModel);
+                return View();
             }
 
             await _produtoService.SaveChanges();
@@ -153,16 +162,10 @@ namespace Kruger.Marketplace.MVC.Controllers
             return View(produtoViewModel);
         }
 
-        private List<SelectListItem> GetPageSizeList()
+        private async Task<ProdutoViewModel> PopularCategorias(ProdutoViewModel produto)
         {
-            List<SelectListItem> listaPageSize =
-            [
-                new() { Value = "25", Text = "25" },
-                new() { Value = "50", Text = "50" },
-                new() { Value = "100", Text = "100" }
-            ];
-
-            return listaPageSize;
+            produto.Categorias = _mapper.Map<IEnumerable<CategoriaViewModel>>(await _categoriaService.GetAll());
+            return produto;
         }
         #endregion
     }

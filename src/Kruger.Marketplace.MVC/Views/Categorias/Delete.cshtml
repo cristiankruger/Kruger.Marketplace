@@ -9,6 +9,11 @@
     <h1>@ViewBag.Title</h1>
 </div>
 
+@* <div asp-validation-summary="ModelOnly" class="clientside-validation-summary text-danger"></div> *@
+
+
+<partial name="_AlertPartial"/>
+
 <h3>Tem certeza que deseja excluir a categoria @Model.Nome?</h3>
 <div>
     <hr />

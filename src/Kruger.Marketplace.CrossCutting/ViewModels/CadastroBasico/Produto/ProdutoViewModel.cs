@@ -1,4 +1,5 @@
 ﻿using Kruger.Marketplace.CrossCutting.Extensions;
+using Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Categoria;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -19,14 +20,17 @@ namespace Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Produto
 
         [Range(1, int.MaxValue, ErrorMessage = "Informe uma quantidade maior que zero.")]
         [DisplayName("Estoque")]
+        [Required(ErrorMessage = "Informe a quantidade em estoque.")]
         public int Estoque { get;  set; }
 
         [DisplayName("Preço")]
         [Range(0.01, int.MaxValue, ErrorMessage = "Informe um Preço maior que zero.")]
+        [Required(ErrorMessage = "Informe um Preço.")]
         public decimal Preco { get;  set; }
 
         [GuidNotEmpty("Categorias")]
         [DisplayName("Categorias")]
+        [Required(ErrorMessage ="Selecione uma categoria.")]
         public Guid CategoriaId { get;  set; }
 
         [DisplayName("Vendedor")]
@@ -41,5 +45,6 @@ namespace Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Produto
 
         public string Categoria { get; set; }
 
+        public IEnumerable<CategoriaViewModel> Categorias{ get; set; }
     }
 }

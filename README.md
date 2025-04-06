@@ -129,3 +129,16 @@ Este projeto é parte de um curso acadêmico e não aceita contribuições exter
 Para feedbacks ou dúvidas utilize o recurso de Issues
 
 O arquivo FEEDBACK.md é um resumo das avaliações do instrutor e deverá ser modificado apenas por ele.
+
+# 10. TODO:
+
+- MVC:
+   - Sobrescrever páginas de register e login do ASP.NET Identity;
+   - Cadastrar Vendedor ao cadastrar IdentityUser (vincular Ids, nome, e-mail e senha);
+   - Upload de imagem em produtos;
+   - Tratamento de erros em produtos;
+   - Finalizar página de criação, edição e exclusão de produtos;
+- API:
+   - Implementar ASP.NET Identity;
+   - Controller de Auth;
+   - Controller de Produtos;

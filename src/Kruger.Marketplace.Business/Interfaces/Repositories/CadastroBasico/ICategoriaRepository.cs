@@ -4,6 +4,6 @@ namespace Kruger.Marketplace.Business.Interfaces.Repositories.CadastroBasico
 {
     public interface ICategoriaRepository : IRepository<Categoria>
     {
-
+        Task<IEnumerable<Categoria>> GetAll();
     }
 }

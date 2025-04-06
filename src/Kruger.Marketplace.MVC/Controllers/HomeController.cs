@@ -14,7 +14,7 @@ namespace Kruger.Marketplace.MVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index","Produtos");
         }
 
         public IActionResult Privacy()

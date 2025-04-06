@@ -37,9 +37,13 @@ namespace Kruger.Marketplace.CrossCutting.Expressions
         {
             var predicate = PredicateBuilder.New<Produto>(true);
 
+            if (filter.VendedorId != Guid.Empty)
+                predicate.And(c => c.VendedorId == filter.VendedorId);
+
             if (!string.IsNullOrEmpty(filter.Busca))
                 predicate.And(c => c.Nome.Contains(filter.Busca) ||
-                                   c.Descricao.Contains(filter.Busca));
+                                   c.Descricao.Contains(filter.Busca) ||
+                                   c.Categoria.Descricao.Contains(filter.Busca));
 
             return predicate;
         }

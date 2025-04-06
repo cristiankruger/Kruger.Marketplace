@@ -24,6 +24,11 @@ namespace Kruger.Marketplace.Business.Services.CadastroBasico
             return await _unitOfWork.CategoriaRepository.GetAll(predicate, orderBy, pageNumber, pageSize, desc);
         }
 
+        public async Task<IEnumerable<Categoria>> GetAll()
+        {
+            return await _unitOfWork.CategoriaRepository.GetAll();
+        }
+
         public async Task<Categoria> GetById(Guid id)
         {
             var categoria = await _unitOfWork.CategoriaRepository.GetById(id);

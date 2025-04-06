@@ -5,6 +5,7 @@ using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
 using Kruger.Marketplace.Business.Models.CadastroBasico;
 using Kruger.Marketplace.CrossCutting.App;
 using Kruger.Marketplace.CrossCutting.Expressions;
+using Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Categoria;
 using Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Produto;
 using Kruger.Marketplace.CrossCutting.ViewModels.Pagina;
 using Microsoft.AspNetCore.Mvc;
@@ -100,7 +101,7 @@ namespace Kruger.Marketplace.API.Controllers.V1
         private async Task SaveChanges()
         {
             await _produtoService.SaveChanges();
-        }
+        }      
         #endregion
 
     }

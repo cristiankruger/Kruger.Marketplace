@@ -7,13 +7,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FluentValidation" Version="11.11.0" />
-		<PackageReference Include="LinqKit" Version="1.3.8" />
-		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	  <Compile Remove="Interfaces\App\**" />
+	  <EmbeddedResource Remove="Interfaces\App\**" />
+	  <None Remove="Interfaces\App\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Interfaces\App\" />
+		<PackageReference Include="FluentValidation" Version="11.11.0" />
+		<PackageReference Include="LinqKit" Version="1.3.8" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 </Project>

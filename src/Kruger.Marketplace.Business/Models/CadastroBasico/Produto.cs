@@ -12,7 +12,7 @@ namespace Kruger.Marketplace.Business.Models.CadastroBasico
         public string Imagem { get; private set; }
         public IFormFile FileUpload { get; private set; }
         public Guid CategoriaId { get; private set; }
-        public Guid VendedorId { get; set; }
+        public Guid VendedorId { get; private set; }
 
 
         #region NAVIGATION PROPERTIES
@@ -25,7 +25,7 @@ namespace Kruger.Marketplace.Business.Models.CadastroBasico
 
         }
 
-        public Produto(Guid id, int estoque, decimal preco, string nome, string descricao, string imagem, Guid categoriaId)
+        public Produto(Guid id, int estoque, decimal preco, string nome, string descricao, string imagem, Guid categoriaId, Guid vendedorId)
         {
             Id = id;
             Estoque = estoque;
@@ -34,6 +34,7 @@ namespace Kruger.Marketplace.Business.Models.CadastroBasico
             Descricao = descricao;
             Imagem = imagem;
             CategoriaId = categoriaId;
+            VendedorId = vendedorId;
         }
 
         public override bool IsValid()

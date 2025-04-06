@@ -5,15 +5,13 @@ using Kruger.Marketplace.Business.Models.CadastroBasico;
 using Kruger.Marketplace.Business.Interfaces.Notificador;
 using AutoMapper;
 using Kruger.Marketplace.CrossCutting.ViewModels.Pagina;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Kruger.Marketplace.CrossCutting.Expressions;
 using Microsoft.AspNetCore.Authorization;
 using Kruger.Marketplace.CrossCutting.App;
-using YamlDotNet.Core.Tokens;
 
 namespace Kruger.Marketplace.MVC.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("categorias")]
     public class CategoriasController(ICategoriaService categoriaService,
                                       IMapper mapper,
@@ -131,7 +129,8 @@ namespace Kruger.Marketplace.MVC.Controllers
             {
                 GetErrorsFromNotificador();
 
-                return View(categoriaViewModel);
+                //return RedirectToAction(nameof(Index));
+                return View();
             }
 
             await _categoriaService.SaveChanges();
