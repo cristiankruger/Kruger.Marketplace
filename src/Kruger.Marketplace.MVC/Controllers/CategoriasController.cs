@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Kruger.Marketplace.CrossCutting.Expressions;
 using Microsoft.AspNetCore.Authorization;
 using Kruger.Marketplace.CrossCutting.App;
+using YamlDotNet.Core.Tokens;
 
 namespace Kruger.Marketplace.MVC.Controllers
 {
@@ -37,7 +38,7 @@ namespace Kruger.Marketplace.MVC.Controllers
 
             var paged = new PagedViewModel<CategoriaViewModel>
             {
-                PageSizeList = GetPageSizeList(),
+                PageSizeList = GetPageSizeList(pageSize),
                 Filter = filter,
                 TotalRecords = await _categoriaService.GetTotal(predicate),
                 PagedData = _mapper.Map<IEnumerable<CategoriaViewModel>>(await _categoriaService.GetAll(predicate,
@@ -141,7 +142,6 @@ namespace Kruger.Marketplace.MVC.Controllers
         }
 
         #region PRIVATE METHODS
-       
 
         private async Task<IActionResult> GetById(Guid id)
         {
@@ -151,21 +151,9 @@ namespace Kruger.Marketplace.MVC.Controllers
             var categoriaViewModel = _mapper.Map<CategoriaViewModel>(await _categoriaService.GetById(id));
 
             if (categoriaViewModel is null)
-                   return NotFound();
+                return NotFound();
 
             return View(categoriaViewModel);
-        }
-
-        private List<SelectListItem> GetPageSizeList()
-        {
-            List<SelectListItem> listaPageSize =
-            [
-                new() { Value = "25", Text = "25" },
-                new() { Value = "50", Text = "50" },
-                new() { Value = "100", Text = "100" }
-            ];
-
-            return listaPageSize;
         }
         #endregion
     }

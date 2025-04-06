@@ -2,6 +2,7 @@
 using Kruger.Marketplace.Business.Notificacoes;
 using Kruger.Marketplace.CrossCutting.App;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Kruger.Marketplace.MVC.Controllers
 {
@@ -37,6 +38,22 @@ namespace Kruger.Marketplace.MVC.Controllers
         protected void NotificarErro(string errorMessage)
         {
             _notificador.Handle(new Notificacao(errorMessage));
+        }
+
+        protected List<SelectListItem> GetPageSizeList(int selected)
+        {
+            var pagedItemsList = new List<SelectListItem>() {
+                new() { Value = "10", Text = "10", Selected = false},
+                new() { Value = "25", Text = "25", Selected = false},
+                new() { Value = "50", Text = "50" , Selected = false},
+                new() { Value = "100", Text = "100" , Selected = false}
+            };
+
+            foreach (var item in pagedItemsList)
+                if (item.Value == selected.ToString())
+                    item.Selected = true;
+
+            return pagedItemsList;
         }
     }
 }

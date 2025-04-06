@@ -37,7 +37,7 @@ namespace Kruger.Marketplace.MVC.Controllers
 
             var paged = new PagedViewModel<ProdutoViewModel>
             {
-                PageSizeList = GetPageSizeList(),
+                PageSizeList = GetPageSizeList(pageSize),
                 Filter = filter,
                 TotalRecords = await _produtoService.GetTotal(predicate),
                 PagedData = _mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoService.GetAll(predicate,
