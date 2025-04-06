@@ -8,7 +8,7 @@ namespace Kruger.Marketplace.CrossCutting.Extensions
     public interface IStartup
     {
         IConfiguration Configuration { get; }
-        void ConfigureServices(IServiceCollection services);
+        void ConfigureServices(IServiceCollection services, IWebHostEnvironment env);
         void Configure(WebApplication app, IWebHostEnvironment env);
     }
 }

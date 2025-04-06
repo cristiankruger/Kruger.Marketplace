@@ -355,7 +355,7 @@ namespace Kruger.Marketplace.Data.Migrations
 
             modelBuilder.Entity("Kruger.Marketplace.Business.Models.CadastroBasico.Produto", b =>
                 {
-                    b.HasOne("Kruger.Marketplace.Business.Models.CadastroBasico.Categoria", "Categorias")
+                    b.HasOne("Kruger.Marketplace.Business.Models.CadastroBasico.Categoria", "Categoria")
                         .WithMany("Produto")
                         .HasForeignKey("CategoriaId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -369,7 +369,7 @@ namespace Kruger.Marketplace.Data.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_PRODUTO_VENDEDORID");
 
-                    b.Navigation("Categorias");
+                    b.Navigation("Categoria");
 
                     b.Navigation("Vendedor");
                 });

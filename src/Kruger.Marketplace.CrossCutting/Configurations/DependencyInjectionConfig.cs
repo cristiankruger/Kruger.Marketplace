@@ -15,6 +15,7 @@ using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
 using Kruger.Marketplace.Business.Services.CadastroBasico;
 using System.Diagnostics.CodeAnalysis;
 using Kruger.Marketplace.CrossCutting.App;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Kruger.Marketplace.CrossCutting.Configurations
 {
@@ -25,7 +26,7 @@ namespace Kruger.Marketplace.CrossCutting.Configurations
         {
             #region APPServices
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<DbContext, AppDbContext>();
+            services.AddScoped<IdentityDbContext, AppDbContext>();
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IAppIdentityUser, AppIdentityUser>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

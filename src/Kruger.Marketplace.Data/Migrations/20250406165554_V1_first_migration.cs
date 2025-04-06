@@ -46,6 +46,33 @@ namespace Kruger.Marketplace.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CATEGORIAS",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
+                    Descricao = table.Column<string>(type: "VARCHAR(500)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CATEGORIAS", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VENDEDORES",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
+                    Email = table.Column<string>(type: "VARCHAR(50)", nullable: false),
+                    Senha = table.Column<string>(type: "VARCHAR(256)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VENDEDORES", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -152,33 +179,6 @@ namespace Kruger.Marketplace.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                           name: "CATEGORIAS",
-                           columns: table => new
-                           {
-                               Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                               Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
-                               Descricao = table.Column<string>(type: "VARCHAR(500)", nullable: false)
-                           },
-                           constraints: table =>
-                           {
-                               table.PrimaryKey("PK_CATEGORIAS", x => x.Id);
-                           });
-
-            migrationBuilder.CreateTable(
-                name: "VENDEDORES",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
-                    Email = table.Column<string>(type: "VARCHAR(50)", nullable: false),
-                    Senha = table.Column<string>(type: "VARCHAR(256)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VENDEDORES", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PRODUTOS",
                 columns: table => new
                 {
@@ -204,6 +204,16 @@ namespace Kruger.Marketplace.Data.Migrations
                         column: x => x.VendedorId,
                         principalTable: "VENDEDORES",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "CATEGORIAS",
+                columns: new[] { "Id", "Descricao", "Nome" },
+                values: new object[,]
+                {
+                    { new Guid("2ce8ce71-e766-41ee-839a-f0824f7fd3b8"), "Categoria destinada a vestuário", "Vestuário" },
+                    { new Guid("63cb29c3-db97-4744-b01d-def53fc1cccb"), "Comidas em geral", "Alimentação" },
+                    { new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "Eletrônicos e eletrodomésticos", "Eletrônicos" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -289,7 +299,6 @@ namespace Kruger.Marketplace.Data.Migrations
                 .Annotation("SqlServer:FillFactor", 80);
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Asp.Versioning;
 using System.Diagnostics.CodeAnalysis;
+using Kruger.Marketplace.Data.Context;
+using Microsoft.AspNetCore.Identity;
 
 namespace Kruger.Marketplace.CrossCutting.Configurations
 {
@@ -20,12 +22,10 @@ namespace Kruger.Marketplace.CrossCutting.Configurations
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            services.AddControllers();
-            //.AddNewtonsoftJson(options =>
-            //{
-            //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            //    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            //});
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<AppDbContext>();
+
+            services.AddControllers();            
 
             return services;
         }
