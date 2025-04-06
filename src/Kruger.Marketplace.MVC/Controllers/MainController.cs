@@ -20,7 +20,9 @@ namespace Kruger.Marketplace.MVC.Controllers
 
             if (user.IsAuthenticated())
             {
-                UserId = user.GetUserId();
+                //TODO: Trocar para o vendedor logado
+                //Hardcode (FK do unico vendedor no arquivo seedDatabase)
+                UserId = Guid.Parse("f96e5735-7f8a-49a7-8fe1-64304e70257d");//user.GetUserId();
                 UserName = user.GetUsername();
             }
         }

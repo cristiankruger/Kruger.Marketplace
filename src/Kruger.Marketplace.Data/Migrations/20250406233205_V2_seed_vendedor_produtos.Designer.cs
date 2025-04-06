@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kruger.Marketplace.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250406213519_V2_seed_Vendedor_Produto")]
-    partial class V2_seed_Vendedor_Produto
+    [Migration("20250406233205_V2_seed_vendedor_produtos")]
+    partial class V2_seed_vendedor_produtos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,47 +115,47 @@ namespace Kruger.Marketplace.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8999d19f-9eaf-4a66-a75e-8f220b4bd076"),
+                            Id = new Guid("6c06634e-1872-4b5a-ac07-ef52177835d4"),
                             CategoriaId = new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"),
                             Descricao = "Personal Computer",
                             Estoque = 100,
                             Imagem = "",
                             Nome = "Computador",
                             Preco = 5000m,
-                            VendedorId = new Guid("398b998c-3bba-4ee7-8152-a49c68a86350")
+                            VendedorId = new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d")
                         },
                         new
                         {
-                            Id = new Guid("f84c440b-aff3-4e67-8ccf-99735d678693"),
+                            Id = new Guid("3288f0bf-8925-4972-b030-dbaec2ca6e2f"),
                             CategoriaId = new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"),
                             Descricao = "mouse com fio",
                             Estoque = 20,
                             Imagem = "",
                             Nome = "Mouse",
                             Preco = 60m,
-                            VendedorId = new Guid("398b998c-3bba-4ee7-8152-a49c68a86350")
+                            VendedorId = new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d")
                         },
                         new
                         {
-                            Id = new Guid("7e9a8479-a896-4468-9718-1029ee745bb9"),
+                            Id = new Guid("177cb2ed-74d1-466d-8be2-829681b2dc7a"),
                             CategoriaId = new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"),
                             Descricao = "teclado mecânico",
                             Estoque = 15,
                             Imagem = "",
                             Nome = "Teclado",
                             Preco = 100m,
-                            VendedorId = new Guid("398b998c-3bba-4ee7-8152-a49c68a86350")
+                            VendedorId = new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d")
                         },
                         new
                         {
-                            Id = new Guid("f2db94f0-6ed3-4019-8450-b373db72fb16"),
+                            Id = new Guid("4c6bd085-16e1-41f7-9a55-760f6c4f55ec"),
                             CategoriaId = new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"),
                             Descricao = "Monitor curso 27",
                             Estoque = 28,
                             Imagem = "",
                             Nome = "Monitor",
                             Preco = 780m,
-                            VendedorId = new Guid("398b998c-3bba-4ee7-8152-a49c68a86350")
+                            VendedorId = new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d")
                         });
                 });
 
@@ -193,7 +193,7 @@ namespace Kruger.Marketplace.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("398b998c-3bba-4ee7-8152-a49c68a86350"),
+                            Id = new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d"),
                             Email = "cristian.kruger@live.com",
                             Nome = "Cristian Kruger",
                             Senha = "AQAAAAIAAYagAAAAECb71CLXHseUZWuW+gUqfchl7eBtMS8a/ZFRWNF/nK41w/ulA/XqEo0HQnMlNJ+9gQ=="

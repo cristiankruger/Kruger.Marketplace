@@ -33,7 +33,7 @@ namespace Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Produto
         [Required(ErrorMessage ="Selecione uma categoria.")]
         public Guid CategoriaId { get;  set; }
 
-        [DisplayName("Vendedor")]
+        [DisplayName("VendedorId")]
         public Guid VendedorId { get; set; }
 
         public string Imagem { get;  set; }

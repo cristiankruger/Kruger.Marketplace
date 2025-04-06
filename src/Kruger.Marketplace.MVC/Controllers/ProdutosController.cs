@@ -164,6 +164,7 @@ namespace Kruger.Marketplace.MVC.Controllers
 
         private async Task<ProdutoViewModel> PopularCategorias(ProdutoViewModel produto)
         {
+            produto.VendedorId = UserId;
             produto.Categorias = _mapper.Map<IEnumerable<CategoriaViewModel>>(await _categoriaService.GetAll());
             return produto;
         }
