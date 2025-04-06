@@ -51,22 +51,22 @@ Cristian Kruger
 
 # 4. Estrutura do Projeto:
 ## A estrutura do projeto é organizada da seguinte forma:
-
+```
 +-- docs/
-|   +-- postman/ [](→ Coleção postman com requisições para API)
+|   +-- postman/ → Coleção postman com requisições para API
 +-- sql/ 
-|   +-- script_marketplace.sql [](→ Script idempotente do banco de dados (exclusivo SQL Server))
+|   +-- script_marketplace.sql → Script idempotente do banco de dados (exclusivo SQL Server)
 +-- src/
-|   +-- Kruger.Marketplace.Api/ [](→ API RESTful.)
-|   +-- Kruger.Marketplace.MVC/ [](→ Projeto MVC.)
-|   +-- Kruger.Marketplace.CrossCutting/ [](→ Projeto para configuração de ViewModels consumidas pela API e MVC e Configurações communs aos projetos MVC e API.)
-|   +-- Kruger.Marketplace.Business/ [](→ Mapeamento das entidades, Aplicação de validações e regras de negócio seguindo as boas práticas do SOLID.)
-|   +-- Kruger.Marketplace.Data/ [](→ Mapeamento de Modelos de Dados, e Configuração do EF Core.)
-+-- .gitignore [](→ Confguração de quais arquivos o Git não deve versionar.)
-+-- FEEDBACK.md [](→ Arquivo para Consolidação dos Feedbacks)
-+-- Kruger.Marketplace.sln [](→ solution do projeto)
-+-- README.md [](→ Arquivo de Documentação/Wiki do Projeto)
-
+|   +-- Kruger.Marketplace.Api/ → API RESTful.
+|   +-- Kruger.Marketplace.MVC/ → Projeto MVC.
+|   +-- Kruger.Marketplace.CrossCutting/ → Projeto para configuração de ViewModels consumidas pela API e MVC e Configurações communs aos projetos MVC e API.
+|   +-- Kruger.Marketplace.Business/ → Mapeamento das entidades, Aplicação de validações e regras de negócio seguindo as boas práticas do SOLID.
+|   +-- Kruger.Marketplace.Data/ → Mapeamento de Modelos de Dados, e Configuração do EF Core.
++-- .gitignore → Confguração de quais arquivos o Git não deve versionar.
++-- FEEDBACK.md → Arquivo para Consolidação dos Feedbacks
++-- Kruger.Marketplace.sln → solution do projeto
++-- README.md → Arquivo de Documentação/Wiki do Projeto
+```
 
 # 5. Funcionalidades Implementadas:
 
