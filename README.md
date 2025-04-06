@@ -51,7 +51,7 @@ Cristian Kruger
 
 # 4. Estrutura do Projeto:
 ## A estrutura do projeto é organizada da seguinte forma:
-```
+
 +-- docs/
 |   +-- postman/ [](→ Coleção postman com requisições para API)
 +-- sql/ 
@@ -66,7 +66,7 @@ Cristian Kruger
 +-- FEEDBACK.md [](→ Arquivo para Consolidação dos Feedbacks)
 +-- Kruger.Marketplace.sln [](→ solution do projeto)
 +-- README.md [](→ Arquivo de Documentação/Wiki do Projeto)
-```
+
 
 # 5. Funcionalidades Implementadas:
 
