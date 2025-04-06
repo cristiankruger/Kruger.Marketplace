@@ -8,14 +8,16 @@ using Kruger.Marketplace.CrossCutting.ViewModels.Pagina;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Kruger.Marketplace.CrossCutting.Expressions;
 using Microsoft.AspNetCore.Authorization;
+using Kruger.Marketplace.CrossCutting.App;
 
 namespace Kruger.Marketplace.MVC.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("categorias")]
-    public class CategoriaController(ICategoriaService categoriaService,
-                                     IMapper mapper,
-                                     INotificador notificador) : MainController(notificador)
+    public class CategoriasController(ICategoriaService categoriaService,
+                                      IMapper mapper,
+                                      INotificador notificador,
+                                      IAppIdentityUser user) : MainController(notificador, user)
     {
         private readonly ICategoriaService _categoriaService = categoriaService;
         private readonly IMapper _mapper = mapper;

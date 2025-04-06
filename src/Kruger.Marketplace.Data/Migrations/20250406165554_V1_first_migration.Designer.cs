@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kruger.Marketplace.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250403194802_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20250406165554_V1_first_migration")]
+    partial class V1_first_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,26 @@ namespace Kruger.Marketplace.Data.Migrations
                     SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Nome"), 80);
 
                     b.ToTable("CATEGORIAS", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2ce8ce71-e766-41ee-839a-f0824f7fd3b8"),
+                            Descricao = "Categoria destinada a vestuário",
+                            Nome = "Vestuário"
+                        },
+                        new
+                        {
+                            Id = new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"),
+                            Descricao = "Eletrônicos e eletrodomésticos",
+                            Nome = "Eletrônicos"
+                        },
+                        new
+                        {
+                            Id = new Guid("63cb29c3-db97-4744-b01d-def53fc1cccb"),
+                            Descricao = "Comidas em geral",
+                            Nome = "Alimentação"
+                        });
                 });
 
             modelBuilder.Entity("Kruger.Marketplace.Business.Models.CadastroBasico.Produto", b =>

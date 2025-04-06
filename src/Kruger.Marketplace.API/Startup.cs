@@ -8,9 +8,9 @@ namespace Kruger.Marketplace.API
     {
         public IConfiguration Configuration { get; } = configuration;
 
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
         {
-            services.AddDatabase(Configuration);
+            services.AddDatabase(Configuration, env);
             services.AddAppSettingsConfiguration(Configuration);
             services.AddJWTConfiguration(Configuration);
             services.AddAutoMapper(typeof(AutomapperConfig));
@@ -24,7 +24,7 @@ namespace Kruger.Marketplace.API
 
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {
-            app.MigrateDatabase();
+            app.MigrateDatabase().Wait();
             app.UseApiConfiguration(env);
             app.UseSwaggerConfig();
             app.UseEndPointsConfiguration();

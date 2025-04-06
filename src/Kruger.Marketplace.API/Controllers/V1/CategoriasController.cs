@@ -3,6 +3,7 @@ using AutoMapper;
 using Kruger.Marketplace.Business.Interfaces.Notificador;
 using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
 using Kruger.Marketplace.Business.Models.CadastroBasico;
+using Kruger.Marketplace.CrossCutting.App;
 using Kruger.Marketplace.CrossCutting.Expressions;
 using Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Categoria;
 using Kruger.Marketplace.CrossCutting.ViewModels.Pagina;
@@ -13,9 +14,10 @@ namespace Kruger.Marketplace.API.Controllers.V1
 {
     [ApiVersion(1.0)]
     [Route("api/v{version:apiversion}/[controller]")]
-    public class CategoriaController(ICategoriaService categoriaService,
+    public class CategoriasController(ICategoriaService categoriaService,
                                      IMapper mapper,
-                                     INotificador notificador) : MainController(notificador)
+                                     IAppIdentityUser user,
+                                     INotificador notificador) : MainController(notificador, user)
     {
         private readonly IMapper _mapper = mapper;
         private readonly ICategoriaService _categoriaService = categoriaService;
@@ -49,7 +51,7 @@ namespace Kruger.Marketplace.API.Controllers.V1
 
         #region WRITE
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]CategoriaViewModel categoriaViewModel)
+        public async Task<IActionResult> Post([FromBody] CategoriaViewModel categoriaViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -61,7 +63,7 @@ namespace Kruger.Marketplace.API.Controllers.V1
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody]CategoriaViewModel categoriaViewModel)
+        public async Task<IActionResult> Put(Guid id, [FromBody] CategoriaViewModel categoriaViewModel)
         {
             if (categoriaViewModel is null || id != categoriaViewModel.Id)
             {

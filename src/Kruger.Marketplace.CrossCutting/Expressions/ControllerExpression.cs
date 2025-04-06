@@ -53,7 +53,7 @@ namespace Kruger.Marketplace.CrossCutting.Expressions
                 "descricao" => p => p.Descricao,
                 "preco" => p => p.Preco,
                 "estoque" => p => p.Estoque,
-                "categoria" => p => p.Categoria.Nome,
+                "Categorias" => p => p.Categoria.Nome,
                 "vendedor" => p => p.Vendedor.Nome,
                 "nome" or
                 _ => p => p.Nome,

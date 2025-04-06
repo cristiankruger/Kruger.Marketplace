@@ -2,65 +2,10 @@
 
 namespace Kruger.Marketplace.Data.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class V1_first_migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-               name: "CATEGORIAS",
-               columns: table => new
-               {
-                   Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                   Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
-                   Descricao = table.Column<string>(type: "VARCHAR(500)", nullable: false)
-               },
-               constraints: table =>
-               {
-                   table.PrimaryKey("PK_CATEGORIAS", x => x.Id);
-               });
-
-            migrationBuilder.CreateTable(
-                name: "VENDEDORES",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
-                    Email = table.Column<string>(type: "VARCHAR(50)", nullable: false),
-                    Senha = table.Column<string>(type: "VARCHAR(256)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VENDEDORES", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-              name: "PRODUTOS",
-              columns: table => new
-              {
-                  Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                  Estoque = table.Column<int>(type: "INT", nullable: false),
-                  Preco = table.Column<decimal>(type: "DECIMAL(18,2)", nullable: false),
-                  Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
-                  Descricao = table.Column<string>(type: "VARCHAR(500)", nullable: false),
-                  Imagem = table.Column<string>(type: "VARCHAR(500)", nullable: true),
-                  CategoriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                  VendedorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-              },
-              constraints: table =>
-              {
-                  table.PrimaryKey("PK_PRODUTOS", x => x.Id);
-                  table.ForeignKey(
-                      name: "FK_PRODUTO_CATEGORIAID",
-                      column: x => x.CategoriaId,
-                      principalTable: "CATEGORIAS",
-                      principalColumn: "Id");
-                  table.ForeignKey(
-                      name: "FK_PRODUTO_VENDEDORID",
-                      column: x => x.VendedorId,
-                      principalTable: "VENDEDORES",
-                      principalColumn: "Id");
-              });
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -98,6 +43,33 @@ namespace Kruger.Marketplace.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CATEGORIAS",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
+                    Descricao = table.Column<string>(type: "VARCHAR(500)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CATEGORIAS", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VENDEDORES",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
+                    Email = table.Column<string>(type: "VARCHAR(50)", nullable: false),
+                    Senha = table.Column<string>(type: "VARCHAR(256)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VENDEDORES", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -204,7 +176,45 @@ namespace Kruger.Marketplace.Data.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });          
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PRODUTOS",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Estoque = table.Column<int>(type: "INT", nullable: false),
+                    Preco = table.Column<decimal>(type: "DECIMAL(18,2)", nullable: false),
+                    Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
+                    Descricao = table.Column<string>(type: "VARCHAR(500)", nullable: false),
+                    Imagem = table.Column<string>(type: "VARCHAR(500)", nullable: true),
+                    CategoriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    VendedorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PRODUTOS", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PRODUTO_CATEGORIAID",
+                        column: x => x.CategoriaId,
+                        principalTable: "CATEGORIAS",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PRODUTO_VENDEDORID",
+                        column: x => x.VendedorId,
+                        principalTable: "VENDEDORES",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "CATEGORIAS",
+                columns: new[] { "Id", "Descricao", "Nome" },
+                values: new object[,]
+                {
+                    { new Guid("2ce8ce71-e766-41ee-839a-f0824f7fd3b8"), "Categoria destinada a vestuário", "Vestuário" },
+                    { new Guid("63cb29c3-db97-4744-b01d-def53fc1cccb"), "Comidas em geral", "Alimentação" },
+                    { new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "Eletrônicos e eletrodomésticos", "Eletrônicos" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -307,13 +317,13 @@ namespace Kruger.Marketplace.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "PRODUTOS");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "PRODUTOS");
 
             migrationBuilder.DropTable(
                 name: "CATEGORIAS");

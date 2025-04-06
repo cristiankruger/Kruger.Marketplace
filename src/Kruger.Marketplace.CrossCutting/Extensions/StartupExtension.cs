@@ -10,7 +10,7 @@ namespace Kruger.Marketplace.CrossCutting.Extensions
             if (Activator.CreateInstance(typeof(TStartup), webAppBuilder.Configuration) is not IStartup startup)
                 throw new ArgumentException("classe startup.cs inválida!");
 
-            startup.ConfigureServices(webAppBuilder.Services);
+            startup.ConfigureServices(webAppBuilder.Services, webAppBuilder.Environment);
 
             var app = webAppBuilder.Build();
 

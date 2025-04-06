@@ -21,7 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kruger.Marketplace.MVC", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kruger.Marketplace.CrossCutting", "src\Kruger.Marketplace.CrossCutting\Kruger.Marketplace.CrossCutting.csproj", "{375BC300-5C7A-4A7B-B5F5-E30C9EC1DB93}"
 EndProject
-
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

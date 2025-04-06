@@ -4,6 +4,6 @@ namespace Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Produto
 {
     public class ProdutoFilter : FilterViewModel
     {
-
+        public Guid? CategoriaId { get; set; }
     }
 }
