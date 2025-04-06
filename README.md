@@ -101,14 +101,14 @@ Execute o projeto para que a configuração do Seed crie o banco e popule com os
 
 ```
 cd src/Kruger.Marketplace.MVC/
-dotnet run
+dotnet run --environment=Development
 ```
 **Abra o browser e acesse a aplicação em: http://localhost:5288**
 
 #### Executar a API:
 ```
 cd src/Kruger.Marketplace.Api/
-dotnet run
+dotnet run --environment=Development
 ```
 **Abra o browser e acesse a documentação da API em: http://localhost:5187/swagger**
   
