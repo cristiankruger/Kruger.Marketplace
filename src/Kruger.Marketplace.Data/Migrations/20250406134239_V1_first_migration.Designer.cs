@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kruger.Marketplace.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250403194802_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20250406134239_V1_first_migration")]
+    partial class V1_first_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -338,7 +338,7 @@ namespace Kruger.Marketplace.Data.Migrations
 
             modelBuilder.Entity("Kruger.Marketplace.Business.Models.CadastroBasico.Produto", b =>
                 {
-                    b.HasOne("Kruger.Marketplace.Business.Models.CadastroBasico.Categoria", "Categoria")
+                    b.HasOne("Kruger.Marketplace.Business.Models.CadastroBasico.Categoria", "Categorias")
                         .WithMany("Produto")
                         .HasForeignKey("CategoriaId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -352,7 +352,7 @@ namespace Kruger.Marketplace.Data.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_PRODUTO_VENDEDORID");
 
-                    b.Navigation("Categoria");
+                    b.Navigation("Categorias");
 
                     b.Navigation("Vendedor");
                 });

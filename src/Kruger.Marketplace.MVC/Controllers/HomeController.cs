@@ -1,17 +1,16 @@
+using Kruger.Marketplace.Business.Interfaces.Notificador;
+using Kruger.Marketplace.CrossCutting.App;
 using Kruger.Marketplace.CrossCutting.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Kruger.Marketplace.MVC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(ILogger<HomeController> logger,
+                                INotificador notificador,
+                                IAppIdentityUser user) : MainController(notificador, user)
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger<HomeController> _logger = logger;
 
         public IActionResult Index()
         {

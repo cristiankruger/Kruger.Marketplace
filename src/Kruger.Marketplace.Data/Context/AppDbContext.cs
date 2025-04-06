@@ -1,4 +1,5 @@
 ﻿using Kruger.Marketplace.Business.Models.CadastroBasico;
+using Kruger.Marketplace.Data.Seed;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -17,12 +18,9 @@ namespace Kruger.Marketplace.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(options => options.CommandTimeout(45)
-                                                          .EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null)
-                                                          .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery));
-
             base.OnConfiguring(optionsBuilder);
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AI");
@@ -45,7 +43,7 @@ namespace Kruger.Marketplace.Data.Context
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-            //SeedEntities.Seed(modelBuilder);
+            SeedDatabase.Seed(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
         }

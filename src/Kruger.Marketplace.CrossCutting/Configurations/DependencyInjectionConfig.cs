@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
 using Kruger.Marketplace.Business.Services.CadastroBasico;
 using System.Diagnostics.CodeAnalysis;
+using Kruger.Marketplace.CrossCutting.App;
 
 namespace Kruger.Marketplace.CrossCutting.Configurations
 {
@@ -26,7 +27,7 @@ namespace Kruger.Marketplace.CrossCutting.Configurations
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<DbContext, AppDbContext>();
             services.AddScoped<INotificador, Notificador>();
-            //services.AddScoped<IUser, AspNetUser>();
+            services.AddScoped<IAppIdentityUser, AppIdentityUser>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             if (configureForApi)
                 services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -34,14 +35,13 @@ namespace Kruger.Marketplace.CrossCutting.Configurations
 
             #region SERVICES
             services.AddScoped<ICategoriaService, CategoriaService>();
-
+            services.AddScoped<IProdutoService, ProdutoService>();
             #endregion
 
             #region REPOSITORIES
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IVendedorRepository, VendedorRepository>();
-
             #endregion
 
             return services;

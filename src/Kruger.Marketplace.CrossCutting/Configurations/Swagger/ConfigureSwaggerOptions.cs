@@ -27,7 +27,7 @@ namespace Kruger.Marketplace.CrossCutting.Configurations.Swagger
             {
                 Title = "Kruger | Kruger Marketplace API",
                 Description = "MBA DevXpert Módulo 1 - Kruger Marketplace API.",
-                Version = "Beta",//VersionInfo.GetVersionInfo(),
+                Version = VersionInfo.GetVersionInfo(),
                 Contact = new OpenApiContact() { Name = "Cristian Kruger", Email = "Cristian.kruger@live.com" }
             };
 
