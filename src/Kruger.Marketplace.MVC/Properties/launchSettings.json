@@ -9,15 +9,6 @@
     }
   },
   "profiles": {
-    "Debug": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:7182;http://localhost:5288",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Debug"
-      }
-    },
     "Development": {
       "commandName": "Project",
       "dotnetRunMessages": true,
