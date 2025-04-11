@@ -1,0 +1,584 @@
+{
+	"info": {
+		"_postman_id": "e276c237-3cce-46fa-b98a-83d373bd8db9",
+		"name": "Kruger.Marketplace",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3397954"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var result = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.globals.set('access_token', result.data);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"teste@live.com\",\r\n    \"password\":\"@Aa12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}{{v1}}auth/login",
+							"host": [
+								"{{base}}{{v1}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var result = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.globals.set('access_token', result.data);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"teste@live.com\",\r\n    \"password\":\"@Aa12345\",\r\n    \"confirmPassword\":\"@Aa12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}{{v1}}auth/register",
+							"host": [
+								"{{base}}{{v1}}auth"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{base}}{{v1}}Categorias?PageNumber=1&PageSize=10&OrderBy=nome&Desc=false",
+							"host": [
+								"{{base}}{{v1}}Categorias"
+							],
+							"query": [
+								{
+									"key": "PageNumber",
+									"value": "1",
+									"description": "Numero da pagina"
+								},
+								{
+									"key": "PageSize",
+									"value": "10",
+									"description": "Quantidade de registros por página"
+								},
+								{
+									"key": "OrderBy",
+									"value": "nome",
+									"description": "Nome do campo pelo qual ordenar (Nome ou Descrição)"
+								},
+								{
+									"key": "Desc",
+									"value": "false",
+									"description": "Ordenação ASC/DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{base}}{{v1}}Categorias/63cb29c3-db97-4744-b01d-def53fc1cccb",
+							"host": [
+								"{{base}}{{v1}}Categorias"
+							],
+							"path": [
+								"63cb29c3-db97-4744-b01d-def53fc1cccb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; x-api-version=1.0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"nome\": \"categoria post\",\n  \"descricao\": \"descrição da categoria post\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}{{v1}}Categorias",
+							"host": [
+								"{{base}}{{v1}}Categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; x-api-version=1.0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Categoria Put\",\n    \"descricao\": \"Descrição da categoria post atualizada\",\n    \"id\": \"ec980301-f544-496a-a812-e58a21ea9a3c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}{{v1}}Categorias/ec980301-f544-496a-a812-e58a21ea9a3c",
+							"host": [
+								"{{base}}{{v1}}Categorias"
+							],
+							"path": [
+								"ec980301-f544-496a-a812-e58a21ea9a3c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; x-api-version=1.0"
+							}
+						],
+						"url": {
+							"raw": "{{base}}{{v1}}Categorias/ec980301-f544-496a-a812-e58a21ea9a3c",
+							"host": [
+								"{{base}}{{v1}}Categorias"
+							],
+							"path": [
+								"ec980301-f544-496a-a812-e58a21ea9a3c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produtos",
+			"item": [
+				{
+					"name": "GetAll",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{base}}{{v1}}Produtos?PageNumber=1&PageSize=10&OrderBy=nome&Desc=false",
+							"host": [
+								"{{base}}{{v1}}Produtos"
+							],
+							"query": [
+								{
+									"key": "PageNumber",
+									"value": "1",
+									"description": "Numero da pagina"
+								},
+								{
+									"key": "PageSize",
+									"value": "10",
+									"description": "Quantidade de registros por página"
+								},
+								{
+									"key": "OrderBy",
+									"value": "nome",
+									"description": "Nome do campo pelo qual ordenar (Nome ou Descrição)"
+								},
+								{
+									"key": "Desc",
+									"value": "false",
+									"description": "Ordenação ASC/DESC"
+								}
+							]
+						},
+						"description": "Para testar sem autenticação, basta limpar os cookies guardados pelo Postman!"
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{base}}{{v1}}Produtos/177cb2ed-74d1-466d-8be2-829681b2dc7a",
+							"host": [
+								"{{base}}{{v1}}Produtos"
+							],
+							"path": [
+								"177cb2ed-74d1-466d-8be2-829681b2dc7a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; x-api-version=1.0"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Nome",
+									"value": "Produto teste",
+									"type": "text"
+								},
+								{
+									"key": "Descricao",
+									"value": "Descrição do produto",
+									"type": "text"
+								},
+								{
+									"key": "Estoque",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "Preco",
+									"value": "50.90",
+									"type": "text"
+								},
+								{
+									"key": "CategoriaId",
+									"value": "7b87817f-f13c-4a68-87c5-0fc28eda22ce",
+									"type": "text"
+								},
+								{
+									"key": "FileUpload",
+									"type": "file",
+									"src": "postman-cloud:///1f011a70-5abc-4840-8e18-d9c1fc58dc60"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base}}{{v1}}Produtos",
+							"host": [
+								"{{base}}{{v1}}Produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; x-api-version=1.0"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "FileUpload",
+									"type": "file",
+									"src": "postman-cloud:///1f011a70-5abc-4840-8e18-d9c1fc58dc60",
+									"disabled": true
+								},
+								{
+									"key": "Id",
+									"value": "afa88fc8-2f5a-431c-ae0a-1ea23b8b24f8",
+									"type": "text"
+								},
+								{
+									"key": "Nome",
+									"value": "Produto teste",
+									"type": "text"
+								},
+								{
+									"key": "Descricao",
+									"value": "Descrição do produto updated",
+									"type": "text"
+								},
+								{
+									"key": "Estoque",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "Preco",
+									"value": "50,90",
+									"type": "text"
+								},
+								{
+									"key": "CategoriaId",
+									"value": "7b87817f-f13c-4a68-87c5-0fc28eda22ce",
+									"type": "text"
+								},
+								{
+									"key": "Imagem",
+									"value": "afa88fc8-2f5a-431c-ae0a-1ea23b8b24f8_aranha.png",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base}}{{v1}}Produtos/afa88fc8-2f5a-431c-ae0a-1ea23b8b24f8",
+							"host": [
+								"{{base}}{{v1}}Produtos"
+							],
+							"path": [
+								"afa88fc8-2f5a-431c-ae0a-1ea23b8b24f8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json; x-api-version=1.0"
+							}
+						],
+						"url": {
+							"raw": "{{base}}{{v1}}Produtos/40493dc9-b67f-4ae2-9969-5a43f32081ef",
+							"host": [
+								"{{base}}{{v1}}Produtos"
+							],
+							"path": [
+								"40493dc9-b67f-4ae2-9969-5a43f32081ef"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

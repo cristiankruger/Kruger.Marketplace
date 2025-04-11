@@ -1,0 +1,149 @@
+﻿@using Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Produto
+@using Kruger.Marketplace.CrossCutting.ViewModels.Pagina
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model PagedViewModel<ProdutoViewModel>
+
+@{
+    ViewBag.Title = "Lista de Produtos";
+    string ControllerName = "Produtos";
+    Paged paged = new Paged(ControllerName, Model.TotalRecords, Model.Filter);
+    Search search = new Search(ControllerName, "busca");
+}
+
+<div>
+    <h1>@ViewBag.Title</h1>
+</div>
+
+<partial name="_AlertPartial" />
+
+@using (Html.BeginForm("Index", ControllerName, FormMethod.Get, new { name = "frmsearch", id = "frmsearch" }))
+{
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div id="custom-search-input">
+                <div class="input-group col-12">
+                    @Html.TextBox("busca", null, new { @class = "form-control input", @placeholder = "Pesquisar", autofocus = "", id = "txtsearch" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-outline-info" type="submit" data-toggle="tooltip" data-placement="right" title="Buscar">
+                            <small><i class="fa fa-search"></i></small>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="pull-right">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <button onclick="window.location.href = '@Url.Action("Create", ControllerName)'; return false;" class="btn btn-outline-primary">
+                        <i class="fa fa-plus fa-with-text"></i><span> Cadastrar</span>
+                    </button>
+                }
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <div class="panel panel-default">
+        <label>
+            Registros por página:
+            <select id="pageSize" name="pageSize" class="form-select">
+                @foreach (var item in Model.PageSizeList)
+                {
+                    <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                }
+            </select>
+        </label>
+        <div class="table-responsive">
+            <table class="table table-hover ">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PagedData.First().Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PagedData.First().Descricao)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PagedData.First().Estoque)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PagedData.First().Preco)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PagedData.First().Categoria)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PagedData.First().Imagem)
+                        </th>
+                        <th style="text-align:right">Ações</th>
+                    </tr>
+                </thead>
+
+                @if (Model.PagedData.Count() > 0)
+                {
+                    <tbody>
+
+                        @foreach (var item in Model.PagedData)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayTextFor(modelItem => item.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayTextFor(modelItem => item.Descricao)
+                                </td>
+                                <td>
+                                    @Html.DisplayTextFor(modelItem => item.Estoque)
+                                </td>
+                                <td>
+                                    @item.Preco.ToString("C2")
+                                </td>
+                                <td>
+                                    @Html.DisplayTextFor(modelItem => item.Categoria)
+                                </td>
+                                <td>
+                                    <img src="@Url.Content(item.ImageUri)" style="width: 70px; height:70px;" alt="@item.ImageDisplayName" />
+                                </td>
+                                <td style="text-align:right">
+                                    <button onclick="window.location.href = '@Url.Action("Details", ControllerName, new {id = item.Id})'; return false;" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Detalhes">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <button onclick="window.location.href = '@Url.Action("Edit", ControllerName, new {id = item.Id})'; return false;" class="btn btn-outline-info btn-sm" data-toggle="tooltip" data-placement="top" title="Editar">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <button onclick="window.location.href = '@Url.Action("Delete", ControllerName, new {id = item.Id})'; return false;" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Excluir">
+                                            <i class="fa fa-ban"></i>
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                }
+                else
+                {
+                    <partial name="_DefaultTableFooterPartial" />
+                }
+            </table>
+            <partial name="_PaginationPartial" , paged />
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            $("#pageSize").change(function(){
+                $("#frmsearch").submit();
+            });
+        });
+    </script>
+}

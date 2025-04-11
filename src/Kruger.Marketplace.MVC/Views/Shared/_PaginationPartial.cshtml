@@ -1,0 +1,54 @@
+﻿@model Kruger.Marketplace.CrossCutting.ViewModels.Pagina.Paged
+
+@{
+    var totalCount = Math.Ceiling((double)@Model.TotalRecords / @Model.Filter.PageSize);
+
+    <div class="page-nation">
+        <ul class="pagination pagination-large">
+
+            @{
+                if (Model.Filter.PageNumber > 1)
+                {
+                    <li>
+                        <a href="@Url.Action("Index", Model.ControllerToRedirect, new { buscar = Model.Filter.Busca, pageNumber = 1, Model.Filter.PageSize })"><i class="fa fa-fast-backward"></i></a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", Model.ControllerToRedirect, new { buscar = Model.Filter.Busca, pageNumber = Model.Filter.PageNumber - 1, Model.Filter.PageSize })"><i class="fa fa-backward"></i></a>
+                    </li>
+                }
+                else
+                {
+                    <li><i class="fa fa-fast-backward"></i></li>
+                    <li><i class="fa fa-backward"></i></li>
+                }
+            }
+            <li>
+                @{
+                    if (@totalCount > 0)
+                    {
+                        <span>@Model.Filter.PageNumber de @totalCount</span>
+                    }
+                    else
+                    {
+                        <span>0</span>
+                    }
+                }
+            </li>
+
+            @if (Model.Filter.PageNumber < @totalCount)
+            {
+                <li>
+                    <a href="@Url.Action("Index", Model.ControllerToRedirect, new { buscar = Model.Filter.Busca, pageNumber = Model.Filter.PageNumber + 1, Model.Filter.PageSize })"><i class="fa fa-forward"></i></a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", Model.ControllerToRedirect, new { buscar = Model.Filter.Busca, pageNumber = @totalCount, Model.Filter.PageSize })"><i class="fa fa-fast-forward"></i></a>
+                </li>
+            }
+            else
+            {
+                <li><i class="fa fa-forward"></i></li>
+                <li><i class="fa fa-fast-forward"></i></li>
+            }
+        </ul>
+    </div>
+}
