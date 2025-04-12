@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace Kruger.Marketplace.Data.Extensions
 {

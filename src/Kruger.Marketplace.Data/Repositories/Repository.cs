@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-using Kruger.Marketplace.Business.Interfaces.Repositories;
+﻿using Kruger.Marketplace.Business.Interfaces.Repositories;
 using Kruger.Marketplace.Business.Models;
 using Kruger.Marketplace.Data.Context;
 using Kruger.Marketplace.Data.Extensions;
