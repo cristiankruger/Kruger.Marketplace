@@ -1,6 +1,6 @@
 using Kruger.Marketplace.Business.Interfaces.Notificador;
-using Kruger.Marketplace.CrossCutting.App;
-using Kruger.Marketplace.CrossCutting.ViewModels;
+using Kruger.Marketplace.Application.App;
+using Kruger.Marketplace.Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

@@ -1,4 +1,4 @@
-namespace Kruger.Marketplace.CrossCutting.ViewModels
+namespace Kruger.Marketplace.Application.ViewModels
 {
     public class ErrorViewModel
     {

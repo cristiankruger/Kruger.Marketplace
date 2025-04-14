@@ -1,5 +1,5 @@
-﻿using Kruger.Marketplace.CrossCutting.Configurations;
-using IStartup = Kruger.Marketplace.CrossCutting.Extensions.IStartup;
+﻿using Kruger.Marketplace.Application.Configurations;
+using IStartup = Kruger.Marketplace.Application.Extensions.IStartup;
 
 namespace Kruger.Marketplace.MVC
 {

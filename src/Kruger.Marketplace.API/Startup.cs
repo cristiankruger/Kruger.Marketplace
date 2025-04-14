@@ -1,6 +1,6 @@
-﻿using Kruger.Marketplace.CrossCutting.Configurations;
-using Kruger.Marketplace.CrossCutting.Configurations.Swagger;
-using IStartup = Kruger.Marketplace.CrossCutting.Extensions.IStartup;
+﻿using Kruger.Marketplace.Application.Configurations;
+using Kruger.Marketplace.Application.Configurations.Swagger;
+using IStartup = Kruger.Marketplace.Application.Extensions.IStartup;
 
 namespace Kruger.Marketplace.API
 {

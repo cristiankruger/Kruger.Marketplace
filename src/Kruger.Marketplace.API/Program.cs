@@ -1,4 +1,4 @@
 using Kruger.Marketplace.API;
-using Kruger.Marketplace.CrossCutting.Extensions;
+using Kruger.Marketplace.Application.Extensions;
 
 WebApplication.CreateBuilder(args).UseStartup<Startup>();

@@ -1,7 +1,7 @@
 ﻿using Kruger.Marketplace.Business.Interfaces.Notificador;
 using Kruger.Marketplace.Business.Notificacoes;
-using Kruger.Marketplace.CrossCutting.App;
-using Kruger.Marketplace.CrossCutting.Configurations;
+using Kruger.Marketplace.Application.App;
+using Kruger.Marketplace.Application.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Categoria;
+using Kruger.Marketplace.Application.ViewModels.CadastroBasico.Categoria;
 using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
 using Kruger.Marketplace.Business.Models.CadastroBasico;
 using Kruger.Marketplace.Business.Interfaces.Notificador;
 using AutoMapper;
-using Kruger.Marketplace.CrossCutting.ViewModels.Pagina;
-using Kruger.Marketplace.CrossCutting.Expressions;
+using Kruger.Marketplace.Application.ViewModels.Pagina;
+using Kruger.Marketplace.Application.Expressions;
 using Microsoft.AspNetCore.Authorization;
-using Kruger.Marketplace.CrossCutting.App;
+using Kruger.Marketplace.Application.App;
 
 namespace Kruger.Marketplace.MVC.Controllers
 {
