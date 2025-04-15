@@ -97,6 +97,7 @@ namespace Kruger.Marketplace.API.Controllers.V1
 
             if (!await _produtoService.Add(_mapper.Map<Produto>(produtoViewModel)))
                 return CustomResponse(HttpStatusCode.BadRequest);
+            
             await SaveChanges(produtoViewModel.Id);
 
             return CustomResponse(HttpStatusCode.Created, null, produtoViewModel, produtoViewModel.Id);

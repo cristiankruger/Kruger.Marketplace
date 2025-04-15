@@ -38,7 +38,7 @@ namespace Kruger.Marketplace.Business.Services.Arquivo
                 return false;
             }
 
-            var filePath = $"{_environment.WebRootPath}{_arquivoSettings.BasePath.Replace("~", string.Empty)}{_arquivoSettings.Container}{fileName}";
+            var filePath = $"{_environment.WebRootPath}{_arquivoSettings.BasePath.Replace("wwwroot", string.Empty)}{_arquivoSettings.Container}{fileName}";
 
             using Stream fileStream = new FileStream(filePath, FileMode.Create);
 

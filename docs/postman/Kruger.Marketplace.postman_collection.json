@@ -16,13 +16,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var result = JSON.parse(responseBody);\r",
-									"\r",
-									"pm.globals.set('access_token', result.data);\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.test(\"StatusCode OK\", function () {\r",
 									"  pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"\r",
+									"var result = JSON.parse(pm.response.text());\r",
+									"\r",
+									"pm.globals.set('access_token', result.data);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -37,7 +37,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"teste@live.com\",\r\n    \"password\":\"@Aa12345\"\r\n}",
+							"raw": "{\r\n    \"email\":\"mail.teste@teste.com\",\r\n    \"password\":\"@Aa12345\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,9 +45,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base}}{{v1}}auth/login",
+							"raw": "{{base}}auth/login",
 							"host": [
-								"{{base}}{{v1}}auth"
+								"{{base}}auth"
 							],
 							"path": [
 								"login"
@@ -63,13 +63,13 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var result = JSON.parse(responseBody);\r",
-									"\r",
-									"pm.globals.set('access_token', result.data);\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.test(\"StatusCode OK\", function () {\r",
 									"  pm.response.to.have.status(200);\r",
-									"});"
+									"});\r",
+									"\r",
+									"var result = JSON.parse(pm.response.text());\r",
+									"\r",
+									"pm.globals.set('access_token', result.data);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -84,7 +84,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"teste@live.com\",\r\n    \"password\":\"@Aa12345\",\r\n    \"confirmPassword\":\"@Aa12345\"\r\n}",
+							"raw": "{    \r\n    \"email\":\"teste@live.com\",\r\n    \"password\":\"@Aa12345\",\r\n    \"confirmPassword\":\"@Aa12345\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -92,9 +92,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{base}}{{v1}}auth/register",
+							"raw": "{{base}}auth/register",
 							"host": [
-								"{{base}}{{v1}}auth"
+								"{{base}}auth"
 							],
 							"path": [
 								"register"
@@ -110,6 +110,20 @@
 			"item": [
 				{
 					"name": "GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"StatusCode OK\",  ()=>{\r",
+									"    pm.response.to.have.status(200)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -129,9 +143,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{base}}{{v1}}Categorias?PageNumber=1&PageSize=10&OrderBy=nome&Desc=false",
+							"raw": "{{base}}Categorias?PageNumber=1&PageSize=10&OrderBy=nome&Desc=false",
 							"host": [
-								"{{base}}{{v1}}Categorias"
+								"{{base}}Categorias"
 							],
 							"query": [
 								{
@@ -160,39 +174,25 @@
 					"response": []
 				},
 				{
-					"name": "GetById",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "{{base}}{{v1}}Categorias/63cb29c3-db97-4744-b01d-def53fc1cccb",
-							"host": [
-								"{{base}}{{v1}}Categorias"
-							],
-							"path": [
-								"63cb29c3-db97-4744-b01d-def53fc1cccb"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"StatusCode Created\",  ()=>{\r",
+									"    pm.response.to.have.status(201)\r",
+									"})\r",
+									"\r",
+									"var jsonData = JSON.parse(pm.response.text());\r",
+									"\r",
+									"pm.environment.set(\"categoria_id\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -217,7 +217,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \n  \"nome\": \"categoria post\",\n  \"descricao\": \"descrição da categoria post\"\n}",
+							"raw": "{ \n  \"nome\": \"categoria posted\",\n  \"descricao\": \"descrição da categoria post\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -225,9 +225,55 @@
 							}
 						},
 						"url": {
-							"raw": "{{base}}{{v1}}Categorias",
+							"raw": "{{base}}Categorias",
 							"host": [
-								"{{base}}{{v1}}Categorias"
+								"{{base}}Categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"StatusCode OK\",  ()=>{\r",
+									"    pm.response.to.have.status(200)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{base}}Categorias/{{categoria_id}}",
+							"host": [
+								"{{base}}Categorias"
+							],
+							"path": [
+								"{{categoria_id}}"
 							]
 						}
 					},
@@ -235,6 +281,20 @@
 				},
 				{
 					"name": "Put",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"StatusCode NoContent\",  ()=>{\r",
+									"    pm.response.to.have.status(204)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -259,7 +319,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nome\": \"Categoria Put\",\n    \"descricao\": \"Descrição da categoria post atualizada\",\n    \"id\": \"ec980301-f544-496a-a812-e58a21ea9a3c\"\n}",
+							"raw": "{\n    \"nome\": \"Categoria Posted updated\",\n    \"descricao\": \"Descrição da categoria post atualizada\",\n    \"id\": \"{{categoria_id}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -267,12 +327,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{base}}{{v1}}Categorias/ec980301-f544-496a-a812-e58a21ea9a3c",
+							"raw": "{{base}}Categorias/{{categoria_id}}",
 							"host": [
-								"{{base}}{{v1}}Categorias"
+								"{{base}}Categorias"
 							],
 							"path": [
-								"ec980301-f544-496a-a812-e58a21ea9a3c"
+								"{{categoria_id}}"
 							]
 						}
 					},
@@ -280,6 +340,20 @@
 				},
 				{
 					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"StatusCode NoContent\",  ()=>{\r",
+									"    pm.response.to.have.status(204)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -303,12 +377,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{base}}{{v1}}Categorias/ec980301-f544-496a-a812-e58a21ea9a3c",
+							"raw": "{{base}}Categorias/{{categoria_id}}",
 							"host": [
-								"{{base}}{{v1}}Categorias"
+								"{{base}}Categorias"
 							],
 							"path": [
-								"ec980301-f544-496a-a812-e58a21ea9a3c"
+								"{{categoria_id}}"
 							]
 						}
 					},
@@ -321,6 +395,20 @@
 			"item": [
 				{
 					"name": "GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"StatusCode OK\",  ()=>{\r",
+									"    pm.response.to.have.status(200)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {}
 					},
@@ -368,32 +456,25 @@
 					"response": []
 				},
 				{
-					"name": "GetById",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "{{base}}{{v1}}Produtos/177cb2ed-74d1-466d-8be2-829681b2dc7a",
-							"host": [
-								"{{base}}{{v1}}Produtos"
-							],
-							"path": [
-								"177cb2ed-74d1-466d-8be2-829681b2dc7a"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"StatusCode Created\",  ()=>{\r",
+									"    pm.response.to.have.status(201)\r",
+									"})\r",
+									"\r",
+									"var jsonData = JSON.parse(pm.response.text());\r",
+									"\r",
+									"pm.environment.set(\"produto_id\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -421,7 +502,7 @@
 							"formdata": [
 								{
 									"key": "Nome",
-									"value": "Produto teste",
+									"value": "Produto teste post",
 									"type": "text"
 								},
 								{
@@ -441,7 +522,7 @@
 								},
 								{
 									"key": "CategoriaId",
-									"value": "7b87817f-f13c-4a68-87c5-0fc28eda22ce",
+									"value": "2ce8ce71-e766-41ee-839a-f0824f7fd3b8",
 									"type": "text"
 								},
 								{
@@ -452,9 +533,48 @@
 							]
 						},
 						"url": {
-							"raw": "{{base}}{{v1}}Produtos",
+							"raw": "{{base}}Produtos",
 							"host": [
-								"{{base}}{{v1}}Produtos"
+								"{{base}}Produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"StatusCode OK\",  ()=>{\r",
+									"    pm.response.to.have.status(200)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{base}}Produtos/{{produto_id}}",
+							"host": [
+								"{{base}}Produtos"
+							],
+							"path": [
+								"{{produto_id}}"
 							]
 						}
 					},
@@ -462,6 +582,20 @@
 				},
 				{
 					"name": "Put",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"StatusCode NoContent\",  ()=>{\r",
+									"    pm.response.to.have.status(204)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -531,9 +665,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{base}}{{v1}}Produtos/afa88fc8-2f5a-431c-ae0a-1ea23b8b24f8",
+							"raw": "{{base}}Produtos/afa88fc8-2f5a-431c-ae0a-1ea23b8b24f8",
 							"host": [
-								"{{base}}{{v1}}Produtos"
+								"{{base}}Produtos"
 							],
 							"path": [
 								"afa88fc8-2f5a-431c-ae0a-1ea23b8b24f8"
@@ -544,6 +678,20 @@
 				},
 				{
 					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"StatusCode NoContent\",  ()=>{\r",
+									"    pm.response.to.have.status(204)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -567,12 +715,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{base}}{{v1}}Produtos/40493dc9-b67f-4ae2-9969-5a43f32081ef",
+							"raw": "{{base}}Produtos/{{produto_id}}",
 							"host": [
-								"{{base}}{{v1}}Produtos"
+								"{{base}}Produtos"
 							],
 							"path": [
-								"40493dc9-b67f-4ae2-9969-5a43f32081ef"
+								"{{produto_id}}"
 							]
 						}
 					},
