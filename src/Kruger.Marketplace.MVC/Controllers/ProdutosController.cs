@@ -11,7 +11,6 @@ using Kruger.Marketplace.Application.App;
 using Kruger.Marketplace.Application.ViewModels.CadastroBasico.Categoria;
 using Microsoft.Extensions.Options;
 using Kruger.Marketplace.Business.Models.Settings;
-using LinqKit;
 
 namespace Kruger.Marketplace.MVC.Controllers
 {
@@ -65,8 +64,6 @@ namespace Kruger.Marketplace.MVC.Controllers
                                                                                                     filter.PageSize,
                                                                                                     filter.Desc))
             };
-
-            //paged.PagedData.ForEach(produtoViewModel => produtoViewModel.SetImageProperties(imageBasePath, _arquivoSettings.DefaultImage));
 
             return View(paged);
         }
