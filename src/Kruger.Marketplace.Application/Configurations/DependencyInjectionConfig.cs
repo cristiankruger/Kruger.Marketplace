@@ -30,7 +30,7 @@ namespace Kruger.Marketplace.Application.Configurations
             services.AddScoped<IdentityDbContext, AppDbContext>();
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IAppIdentityUser, AppIdentityUser>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             if (configureForApi)
                 services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             #endregion         

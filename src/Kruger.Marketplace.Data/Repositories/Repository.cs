@@ -61,6 +61,11 @@ namespace Kruger.Marketplace.Data.Repositories
             DbSet.Remove(e);
             return 1;
         }
+
+        public virtual async Task<int> SaveChanges()
+        {
+            return await Db.SaveChangesAsync();
+        }
         #endregion
 
         #region DISPOSE

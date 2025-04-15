@@ -113,12 +113,7 @@ namespace Kruger.Marketplace.Application.Configurations
             {
                 endpoints.MapControllers();
             });
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
-
+           
             return app;
         }
         #endregion
