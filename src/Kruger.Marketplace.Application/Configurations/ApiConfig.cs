@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Asp.Versioning;
 using System.Diagnostics.CodeAnalysis;
 using Kruger.Marketplace.Data.Context;
 using Microsoft.AspNetCore.Identity;
@@ -17,33 +15,11 @@ namespace Kruger.Marketplace.Application.Configurations
         #region IServiceCollection
         public static IServiceCollection AddApiBehaviorConfig(this IServiceCollection services)
         {
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
-           
-            services.AddControllers();
-
-            return services;
-        }
-
-        public static IServiceCollection AddVersioningConfig(this IServiceCollection services)
-        {
-            services
-                .AddApiVersioning(options =>
-                {
-                    options.ReportApiVersions = true;
-                    options.AssumeDefaultVersionWhenUnspecified = true;
-                    options.DefaultApiVersion = new ApiVersion(1, 0);
-                    options.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),
-                                                                        new HeaderApiVersionReader("x-api-version"),
-                                                                        new MediaTypeApiVersionReader("x-api-version"));
-                })
-                .AddApiExplorer(options =>
-                {
-                    options.GroupNameFormat = "'v'VVV";
-                    options.SubstituteApiVersionInUrl = true;
-                });            
+            services.AddControllers()
+                    .ConfigureApiBehaviorOptions(options =>
+                    {
+                        options.SuppressModelStateInvalidFilter = true;
+                    });
 
             return services;
         }
@@ -97,12 +73,12 @@ namespace Kruger.Marketplace.Application.Configurations
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-            app.UseMiddleware<ExceptionMiddleware>();
-            app.UseMiddleware<SecurityMiddleware>(env);
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseHttpsRedirection()
+               .UseMiddleware<ExceptionMiddleware>()
+               .UseMiddleware<SecurityMiddleware>(env)
+               .UseRouting()
+               .UseAuthentication()
+               .UseAuthorization();
 
             return app;
         }

@@ -1,8 +1,3 @@
-//using Kruger.Marketplace.Application.Extensions;
-//using Kruger.Marketplace.MVC;
-
-//WebApplication.CreateBuilder(args).UseStartup<Startup>();
-
 using Kruger.Marketplace.Application.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +10,7 @@ builder.Services
        .AddArquivoSettingsConfiguration(configuration)
        .AddAutoMapper(typeof(AutomapperConfig))
        .MvcBehaviorConfig()
-       .ResolveDependecies(false);
+       .ResolveDependecies();
 
 var app = builder.Build();
 

@@ -1,5 +1,4 @@
-﻿using Asp.Versioning;
-using AutoMapper;
+﻿using AutoMapper;
 using Kruger.Marketplace.Business.Interfaces.Notificador;
 using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
 using Kruger.Marketplace.Business.Models.CadastroBasico;
@@ -20,8 +19,7 @@ using System.Net;
 namespace Kruger.Marketplace.API.Controllers.V1
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [ApiVersion(1.0)]
-    [Route("api/v{version:apiversion}/[controller]")]
+    [Route("api/[controller]")]
     public class ProdutosController : MainController
     {
         private readonly IMapper _mapper;

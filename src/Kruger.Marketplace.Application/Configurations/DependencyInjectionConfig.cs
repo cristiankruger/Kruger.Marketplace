@@ -1,15 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Kruger.Marketplace.Business.Interfaces.Notificador;
 using Kruger.Marketplace.Business.Notificacoes;
-using Kruger.Marketplace.Business.Interfaces.Repositories;
 using Kruger.Marketplace.Data.Context;
-using Kruger.Marketplace.Data.Repositories;
 using Kruger.Marketplace.Business.Interfaces.Repositories.CadastroBasico;
 using Kruger.Marketplace.Data.Repositories.CadastroBasico;
-using Kruger.Marketplace.Application.Configurations.Swagger;
 using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
 using Kruger.Marketplace.Business.Services.CadastroBasico;
 using System.Diagnostics.CodeAnalysis;
@@ -23,16 +18,13 @@ namespace Kruger.Marketplace.Application.Configurations
     [ExcludeFromCodeCoverage]
     public static class DependencyInjectionConfig
     {
-        public static IServiceCollection ResolveDependecies(this IServiceCollection services, bool configureForApi = true)
+        public static IServiceCollection ResolveDependecies(this IServiceCollection services)
         {
             #region APPServices
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IdentityDbContext, AppDbContext>();
             services.AddScoped<INotificador, Notificador>();
-            services.AddScoped<IAppIdentityUser, AppIdentityUser>();
-            
-            if (configureForApi)
-                services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            services.AddScoped<IAppIdentityUser, AppIdentityUser>();                        
             #endregion         
 
             #region SERVICES

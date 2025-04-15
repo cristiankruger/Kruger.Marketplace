@@ -1,20 +1,17 @@
 ﻿using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Asp.Versioning.ApiExplorer;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Kruger.Marketplace.Application.Configurations.Swagger
+namespace Kruger.Marketplace.Application.Configurations
 {
     [ExcludeFromCodeCoverage]
     public static class SwaggerConfig
     {
         public static IServiceCollection AddSwaggerConfig(this IServiceCollection services)
         {
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(static c =>
             {
-                c.OperationFilter<SwaggerDefaultValues>();
-
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "Insira o token JWT desta maneira: Bearer {seu token}",
@@ -36,7 +33,7 @@ namespace Kruger.Marketplace.Application.Configurations.Swagger
                                 Id = "Bearer"
                             }
                         },
-                        System.Array.Empty<string>()
+                        Array.Empty<string>()
                     }
                 });
             });
@@ -46,15 +43,8 @@ namespace Kruger.Marketplace.Application.Configurations.Swagger
 
         public static IApplicationBuilder UseSwaggerConfig(this IApplicationBuilder app)
         {
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                foreach (var description in app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>().ApiVersionDescriptions)
-                {
-                    options.SwaggerEndpoint($"{description.GroupName}/swagger.json",
-                        description.GroupName.ToUpperInvariant());
-                }
-            });
+            app.UseSwagger()
+               .UseSwaggerUI();
 
             return app;
         }

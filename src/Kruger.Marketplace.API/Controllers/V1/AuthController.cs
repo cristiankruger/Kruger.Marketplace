@@ -1,5 +1,4 @@
-﻿using Asp.Versioning;
-using Kruger.Marketplace.Business.Interfaces.Notificador;
+﻿using Kruger.Marketplace.Business.Interfaces.Notificador;
 using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
 using Kruger.Marketplace.Business.Models.CadastroBasico;
 using Kruger.Marketplace.Business.Models.Settings;
@@ -17,8 +16,7 @@ using System.Text;
 
 namespace Kruger.Marketplace.API.Controllers.V1
 {
-    [ApiVersion(1.0)]
-    [Route("api/v{version:apiversion}/[controller]")]
+    [Route("api/[controller]")]
     public class AuthController(INotificador notificador,
                                 IAppIdentityUser user,
                                 IOptions<AppSettings> appSettings,
@@ -101,8 +99,11 @@ namespace Kruger.Marketplace.API.Controllers.V1
         {
             var user = await _userManager.FindByEmailAsync(email);
             var roles = await _userManager.GetRolesAsync(user);
-            
-            var claims = new List<Claim>() { new(ClaimTypes.Name, user.UserName) };
+
+            var claims = new List<Claim>() {
+                new(ClaimTypes.Name, user.UserName),
+                new(ClaimTypes.NameIdentifier, user.Id)
+            };
 
             foreach (var role in roles)
                 claims.Add(new(ClaimTypes.Role, role));

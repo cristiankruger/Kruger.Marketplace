@@ -30,6 +30,7 @@ namespace Kruger.Marketplace.Application.Configurations
         {
             using var appContext = GetDbContext(app);
             appContext.Database.SetCommandTimeout(TimeSpan.FromMinutes(5));
+            
             await appContext.Database.MigrateAsync();
 
             return app;

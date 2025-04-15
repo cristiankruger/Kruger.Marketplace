@@ -1,10 +1,4 @@
-//using Kruger.Marketplace.API;
-//using Kruger.Marketplace.Application.Extensions;
-
-//WebApplication.CreateBuilder(args).UseStartup<Startup>();
-
 using Kruger.Marketplace.Application.Configurations;
-using Kruger.Marketplace.Application.Configurations.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -17,7 +11,6 @@ builder.Services
        .AddJWTConfiguration(configuration)
        .AddAutoMapper(typeof(AutomapperConfig))
        .AddApiBehaviorConfig()
-       .AddVersioningConfig()
        .AddCorsConfig()
        .AddEndpointsApiExplorer()
        .AddSwaggerConfig()
