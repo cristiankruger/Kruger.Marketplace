@@ -21,11 +21,11 @@ Cristian Kruger
 
 - **Autenticação e Autorização:** Implementação do ASP.NET Identity para diferenciar usuários autenticados e não autenticados.
 
-- **Camada CrossCutting:** Camada para reaproveitamento de código que seria duplicado tanto pelo MVC quanto pela API (ViewModel, Injeção de dependência e outras Configurações).
+- **Camada Application:** Camada para reaproveitamento de código que seria duplicado tanto pelo MVC quanto pela API (ViewModel, Injeção de dependência e outras Configurações).
 
-- **Camada de Negócios:** Aplicação de regras de negócio utilizando o FluentValidation e boas práticas de desenvolvimento (SOLID).
+- **Camada Business:** Aplicação de regras de negócio utilizando o FluentValidation e boas práticas de desenvolvimento (SOLID).
 
-- **Acesso a Dados:** Implementação de acesso ao banco de dados através do ORM Entity Framework Core.
+- **Acesso Data:** Implementação de acesso ao banco de dados através do ORM Entity Framework Core.
 
 ---
 # 3. Tecnologias Utilizadas:
@@ -38,7 +38,6 @@ Cristian Kruger
   - FluentValidation
   - Automapper
   - Padrão Repository
-  - Padrão Unit Of Work
 - Banco de Dados: SQL Server/SQLite
 - Autenticação e Autorização:
   - ASP.NET Core Identity
@@ -59,7 +58,7 @@ Cristian Kruger
 +-- src/
 |   +-- Kruger.Marketplace.Api/ → API RESTful.
 |   +-- Kruger.Marketplace.MVC/ → Projeto MVC.
-|   +-- Kruger.Marketplace.CrossCutting/ → Projeto para configuração de ViewModels consumidas pela API e MVC e Configurações communs aos projetos MVC e API.
+|   +-- Kruger.Marketplace.Application/ → Projeto para configuração de ViewModels consumidas pela API e MVC e Configurações communs aos projetos MVC e API.
 |   +-- Kruger.Marketplace.Business/ → Mapeamento das entidades, Aplicação de validações e regras de negócio seguindo as boas práticas do SOLID.
 |   +-- Kruger.Marketplace.Data/ → Mapeamento de Modelos de Dados, Configuração do EF Core e Seed do banco de dados (/Seed/SeedDatabase.cs).
 +-- .gitignore → Confguração de quais arquivos o Git não deve versionar.
@@ -138,8 +137,6 @@ O arquivo FEEDBACK.md é um resumo das avaliações do instrutor e deverá ser m
 
 # 10. TODO:
 
-- MVC:
-   - Sobrescrever páginas de register e login do ASP.NET Identity;
-   - Cadastrar Vendedor ao cadastrar IdentityUser (vincular Ids, nome, e-mail e senha);
+- MVC:   
    - Tratamento de campos nas views;
    - Tratamento de erros em produtos;
