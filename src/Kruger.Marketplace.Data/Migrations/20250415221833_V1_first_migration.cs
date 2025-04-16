@@ -29,16 +29,16 @@ namespace Kruger.Marketplace.Data.Migrations
                     NormalizedUserName = table.Column<string>(type: "varchar(100)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "varchar(100)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "varchar(100)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     PasswordHash = table.Column<string>(type: "varchar(100)", nullable: true),
                     SecurityStamp = table.Column<string>(type: "varchar(100)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "varchar(100)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "varchar(100)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,7 +49,7 @@ namespace Kruger.Marketplace.Data.Migrations
                 name: "CATEGORIAS",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     Descricao = table.Column<string>(type: "VARCHAR(500)", nullable: false)
                 },
@@ -62,7 +62,7 @@ namespace Kruger.Marketplace.Data.Migrations
                 name: "VENDEDORES",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     Email = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     Senha = table.Column<string>(type: "VARCHAR(256)", nullable: false)
@@ -76,8 +76,8 @@ namespace Kruger.Marketplace.Data.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(type: "varchar(100)", nullable: false),
                     ClaimType = table.Column<string>(type: "varchar(100)", nullable: true),
                     ClaimValue = table.Column<string>(type: "varchar(100)", nullable: true)
@@ -97,8 +97,8 @@ namespace Kruger.Marketplace.Data.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "varchar(100)", nullable: false),
                     ClaimType = table.Column<string>(type: "varchar(100)", nullable: true),
                     ClaimValue = table.Column<string>(type: "varchar(100)", nullable: true)
@@ -118,8 +118,8 @@ namespace Kruger.Marketplace.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "varchar(100)", nullable: false),
-                    ProviderKey = table.Column<string>(type: "varchar(100)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "varchar(100)", maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(type: "varchar(100)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "varchar(100)", nullable: true),
                     UserId = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
@@ -163,8 +163,8 @@ namespace Kruger.Marketplace.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "varchar(100)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Name = table.Column<string>(type: "varchar(100)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "varchar(100)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "varchar(100)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "varchar(100)", nullable: true)
                 },
                 constraints: table =>
@@ -182,14 +182,14 @@ namespace Kruger.Marketplace.Data.Migrations
                 name: "PRODUTOS",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Estoque = table.Column<int>(type: "INT", nullable: false),
                     Preco = table.Column<decimal>(type: "DECIMAL(18,2)", nullable: false),
                     Nome = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     Descricao = table.Column<string>(type: "VARCHAR(500)", nullable: false),
                     Imagem = table.Column<string>(type: "VARCHAR(500)", nullable: true),
-                    CategoriaId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    VendedorId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    CategoriaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    VendedorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,7 +218,7 @@ namespace Kruger.Marketplace.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "f96e5735-7f8a-49a7-8fe1-64304e70257d", 0, "96fa875e-cac1-4b4f-8357-afd599a2cf92", "mail.teste@teste.com", true, true, null, "MAIL.TESTE@TESTE.COM", "MAIL.TESTE@TESTE.COM", "AQAAAAIAAYagAAAAELir8o/W80jaR21p99MhJnKq89mT/KtfLmIDoexqgiNGvDSHx3r0XrQ/sKC8JXHGcA==", null, false, "3a6b6f47-8dea-43ae-be65-26305d39d8e7", false, "mail.teste@teste.com" });
+                values: new object[] { "f96e5735-7f8a-49a7-8fe1-64304e70257d", 0, "bcdca5bf-167d-41eb-b47b-984b645a8149", "mail.teste@teste.com", true, true, null, "MAIL.TESTE@TESTE.COM", "MAIL.TESTE@TESTE.COM", "AQAAAAIAAYagAAAAENA2RjJ4jnsw0C4D6LFFHRriWH/yoMrh5JfGrf46u1jflvNnDgyd4Qg4AcCI3ixNTQ==", null, false, "df8fc39d-173c-476b-993e-a5c23d291f0e", false, "mail.teste@teste.com" });
 
             migrationBuilder.InsertData(
                 table: "CATEGORIAS",
@@ -233,7 +233,7 @@ namespace Kruger.Marketplace.Data.Migrations
             migrationBuilder.InsertData(
                 table: "VENDEDORES",
                 columns: new[] { "Id", "Email", "Nome", "Senha" },
-                values: new object[] { new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d"), "mail.teste@teste.com", "mail.teste@teste.com", "AQAAAAIAAYagAAAAELir8o/W80jaR21p99MhJnKq89mT/KtfLmIDoexqgiNGvDSHx3r0XrQ/sKC8JXHGcA==" });
+                values: new object[] { new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d"), "mail.teste@teste.com", "mail.teste@teste.com", "AQAAAAIAAYagAAAAENA2RjJ4jnsw0C4D6LFFHRriWH/yoMrh5JfGrf46u1jflvNnDgyd4Qg4AcCI3ixNTQ==" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -245,10 +245,10 @@ namespace Kruger.Marketplace.Data.Migrations
                 columns: new[] { "Id", "CategoriaId", "Descricao", "Estoque", "Imagem", "Nome", "Preco", "VendedorId" },
                 values: new object[,]
                 {
-                    { new Guid("48dea8b7-d5cd-42ca-82cd-e40177906d66"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "Monitor curso 27", 28, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Monitor", 780m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
-                    { new Guid("65a744e2-95d6-42d2-b319-8dd959a96258"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "mouse com fio", 20, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Mouse", 60m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
-                    { new Guid("bcf572f7-b754-42d2-af49-1eb0c268b686"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "teclado mecânico", 15, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Teclado", 100m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
-                    { new Guid("e41b3d2b-d59a-4734-9e55-2ef601b9070c"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "Personal Computer", 100, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Computador", 5000m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") }
+                    { new Guid("1a8a7249-e705-4b54-ae6e-528cbaeef9bb"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "mouse com fio", 20, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Mouse", 60m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
+                    { new Guid("70903fd0-a29e-45d6-95a8-4abd5c91beff"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "teclado mecânico", 15, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Teclado", 100m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
+                    { new Guid("7cbb1134-114d-48f9-8981-2504292ff095"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "Monitor curso 27", 28, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Monitor", 780m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
+                    { new Guid("b751c2c9-a918-40f0-a627-e698ab305787"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "Personal Computer", 100, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Computador", 5000m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -260,7 +260,8 @@ namespace Kruger.Marketplace.Data.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -286,18 +287,21 @@ namespace Kruger.Marketplace.Data.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NOME_CATEGORIA",
                 table: "CATEGORIAS",
                 column: "Nome",
-                unique: true);
+                unique: true)
+                .Annotation("SqlServer:FillFactor", 80);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PRODUTO_NOME",
                 table: "PRODUTOS",
-                column: "Nome");
+                column: "Nome")
+                .Annotation("SqlServer:FillFactor", 80);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PRODUTOS_CategoriaId",
@@ -313,20 +317,24 @@ namespace Kruger.Marketplace.Data.Migrations
                 name: "UQ_PRODUTO_NOME_CATEGORIAID_VENDEDORID",
                 table: "PRODUTOS",
                 columns: new[] { "Nome", "CategoriaId", "VendedorId" },
-                unique: true);
+                unique: true)
+                .Annotation("SqlServer:FillFactor", 80);
 
             migrationBuilder.CreateIndex(
                 name: "IX_VENDEDOR_NOME",
                 table: "VENDEDORES",
-                column: "Nome");
+                column: "Nome")
+                .Annotation("SqlServer:FillFactor", 80);
 
             migrationBuilder.CreateIndex(
                 name: "UQ_VENDEDOR_EMAIL",
                 table: "VENDEDORES",
                 column: "Email",
-                unique: true);
+                unique: true)
+                .Annotation("SqlServer:FillFactor", 80);
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

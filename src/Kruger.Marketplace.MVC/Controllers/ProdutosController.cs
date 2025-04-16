@@ -22,6 +22,7 @@ namespace Kruger.Marketplace.MVC.Controllers
         private readonly IProdutoService _produtoService;
         private readonly ICategoriaService _categoriaService;
         private readonly ArquivoSettings _arquivoSettings;
+        private readonly IWebHostEnvironment _environment;
         private readonly string imageBasePath;
 
         public ProdutosController(IProdutoService produtoService,
@@ -29,13 +30,15 @@ namespace Kruger.Marketplace.MVC.Controllers
                                   IMapper mapper,
                                   INotificador notificador,
                                   IAppIdentityUser user,
+                                  IWebHostEnvironment environment,
                                   IOptions<ArquivoSettings> arquivoSettings) : base(notificador, user)
         {
             _mapper = mapper;
             _produtoService = produtoService;
             _categoriaService = categoriaService;
             _arquivoSettings = arquivoSettings.Value;
-            imageBasePath = $"{_arquivoSettings.BasePath}{_arquivoSettings.Container}";
+            _environment = environment;
+            imageBasePath = $"{_arquivoSettings.BasePath}";
         }
 
         [AllowAnonymous]
@@ -100,7 +103,7 @@ namespace Kruger.Marketplace.MVC.Controllers
 
                 return View(produtoViewModel);
             }
-
+            
             await _produtoService.SaveChanges();
 
             TempData["Sucesso"] = "Produto Cadastrado.";

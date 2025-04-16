@@ -53,6 +53,8 @@ namespace Kruger.Marketplace.API.Controllers.V1
             if (!await _vendedorService.Add(new Vendedor(Guid.Parse(user.Id), user.UserName, user.Email, usuarioRegistro.Password)))
                 return CustomResponse(HttpStatusCode.BadRequest, "Falha ao cadastrar vendedor.");
 
+            await _vendedorService.SaveChanges();
+
             await _signInManager.SignInAsync(user, false);
 
             return CustomResponse(HttpStatusCode.OK, await GerarJWT(user.Email));

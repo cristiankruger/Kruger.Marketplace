@@ -1,11 +1,15 @@
 ﻿@using Kruger.Marketplace.Application.ViewModels.CadastroBasico.Produto
 @using Microsoft.AspNetCore.Identity
+@using Kruger.Marketplace.Business.Models.Settings
+@using Microsoft.Extensions.Options
+@inject IOptions<ArquivoSettings> arquivoSettings
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @model ProdutoViewModel
 
 @{
     ViewBag.Title = $"Detalhes do Produto {Model.Nome}";
+    var basePath = $"{arquivoSettings.Value.BasePath}";
 }
 
 <div>
@@ -50,10 +54,10 @@
             </dl>
             <dl class="col-sm-8">
                 <dt class="col-sm-12">
-                    Imagem do produto:
+                    Imagem do produto
                 </dt>
                 <dd class="col-sm-12">
-                    <img src="@Url.Content(Model.ImageUri)" data-toggle="tooltip" data-placement="bottom" title="@Model.ImageDisplayName" style="width: 300px; height:300px; padding: 10px" alt="@Model.ImageDisplayName" />
+                    <img src="@Url.Content($"{basePath}{Model.Imagem}")" data-toggle="tooltip" data-placement="bottom" title="@Model.Imagem[37..]" style="width: 300px; height:300px; padding: 10px" alt="@Model.Imagem[37..]" />
                 </dd>
             </dl>
         </div>

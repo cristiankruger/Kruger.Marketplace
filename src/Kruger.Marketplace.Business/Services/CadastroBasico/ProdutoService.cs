@@ -70,16 +70,16 @@ namespace Kruger.Marketplace.Business.Services.CadastroBasico
         #endregion
 
         #region METHODS
-        public void Dispose()
-        {
-            _produtoRepository?.Dispose();
-            GC.SuppressFinalize(this);
-        }
-
         public async Task SaveChanges()
         {
             await _produtoRepository.SaveChanges();
         }
+
+        public void Dispose()
+        {
+            _produtoRepository?.Dispose();
+            GC.SuppressFinalize(this);
+        }       
 
         private bool Validate(Produto produto, bool isInsert = false)
         {

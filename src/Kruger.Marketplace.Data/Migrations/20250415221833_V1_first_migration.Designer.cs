@@ -3,6 +3,7 @@ using System;
 using Kruger.Marketplace.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -11,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kruger.Marketplace.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250411165738_V1_first_migration")]
+    [Migration("20250415221833_V1_first_migration")]
     partial class V1_first_migration
     {
         /// <inheritdoc />
@@ -20,13 +21,16 @@ namespace Kruger.Marketplace.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .UseCollation("SQL_Latin1_General_CP1_CI_AI")
-                .HasAnnotation("ProductVersion", "8.0.15");
+                .HasAnnotation("ProductVersion", "8.0.15")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Kruger.Marketplace.Business.Models.CadastroBasico.Categoria", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -40,8 +44,9 @@ namespace Kruger.Marketplace.Data.Migrations
 
                     b.HasIndex("Nome")
                         .IsUnique()
-                        .HasDatabaseName("IX_NOME_CATEGORIA")
-                        .HasAnnotation("SqlServer:FillFactor", 80);
+                        .HasDatabaseName("IX_NOME_CATEGORIA");
+
+                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Nome"), 80);
 
                     b.ToTable("CATEGORIAS", (string)null);
 
@@ -70,10 +75,10 @@ namespace Kruger.Marketplace.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CategoriaId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -93,29 +98,31 @@ namespace Kruger.Marketplace.Data.Migrations
                         .HasColumnType("DECIMAL(18,2)");
 
                     b.Property<Guid>("VendedorId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
 
                     b.HasIndex("Nome")
-                        .HasDatabaseName("IX_PRODUTO_NOME")
-                        .HasAnnotation("SqlServer:FillFactor", 80);
+                        .HasDatabaseName("IX_PRODUTO_NOME");
+
+                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Nome"), 80);
 
                     b.HasIndex("VendedorId");
 
                     b.HasIndex("Nome", "CategoriaId", "VendedorId")
                         .IsUnique()
-                        .HasDatabaseName("UQ_PRODUTO_NOME_CATEGORIAID_VENDEDORID")
-                        .HasAnnotation("SqlServer:FillFactor", 80);
+                        .HasDatabaseName("UQ_PRODUTO_NOME_CATEGORIAID_VENDEDORID");
+
+                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Nome", "CategoriaId", "VendedorId"), 80);
 
                     b.ToTable("PRODUTOS", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e41b3d2b-d59a-4734-9e55-2ef601b9070c"),
+                            Id = new Guid("b751c2c9-a918-40f0-a627-e698ab305787"),
                             CategoriaId = new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"),
                             Descricao = "Personal Computer",
                             Estoque = 100,
@@ -126,7 +133,7 @@ namespace Kruger.Marketplace.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("65a744e2-95d6-42d2-b319-8dd959a96258"),
+                            Id = new Guid("1a8a7249-e705-4b54-ae6e-528cbaeef9bb"),
                             CategoriaId = new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"),
                             Descricao = "mouse com fio",
                             Estoque = 20,
@@ -137,7 +144,7 @@ namespace Kruger.Marketplace.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bcf572f7-b754-42d2-af49-1eb0c268b686"),
+                            Id = new Guid("70903fd0-a29e-45d6-95a8-4abd5c91beff"),
                             CategoriaId = new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"),
                             Descricao = "teclado mecânico",
                             Estoque = 15,
@@ -148,7 +155,7 @@ namespace Kruger.Marketplace.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("48dea8b7-d5cd-42ca-82cd-e40177906d66"),
+                            Id = new Guid("7cbb1134-114d-48f9-8981-2504292ff095"),
                             CategoriaId = new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"),
                             Descricao = "Monitor curso 27",
                             Estoque = 28,
@@ -163,7 +170,7 @@ namespace Kruger.Marketplace.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -181,12 +188,14 @@ namespace Kruger.Marketplace.Data.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique()
-                        .HasDatabaseName("UQ_VENDEDOR_EMAIL")
-                        .HasAnnotation("SqlServer:FillFactor", 80);
+                        .HasDatabaseName("UQ_VENDEDOR_EMAIL");
+
+                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Email"), 80);
 
                     b.HasIndex("Nome")
-                        .HasDatabaseName("IX_VENDEDOR_NOME")
-                        .HasAnnotation("SqlServer:FillFactor", 80);
+                        .HasDatabaseName("IX_VENDEDOR_NOME");
+
+                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Nome"), 80);
 
                     b.ToTable("VENDEDORES", (string)null);
 
@@ -196,7 +205,7 @@ namespace Kruger.Marketplace.Data.Migrations
                             Id = new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d"),
                             Email = "mail.teste@teste.com",
                             Nome = "mail.teste@teste.com",
-                            Senha = "AQAAAAIAAYagAAAAELir8o/W80jaR21p99MhJnKq89mT/KtfLmIDoexqgiNGvDSHx3r0XrQ/sKC8JXHGcA=="
+                            Senha = "AQAAAAIAAYagAAAAENA2RjJ4jnsw0C4D6LFFHRriWH/yoMrh5JfGrf46u1jflvNnDgyd4Qg4AcCI3ixNTQ=="
                         });
                 });
 
@@ -221,7 +230,8 @@ namespace Kruger.Marketplace.Data.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
 
@@ -246,7 +256,9 @@ namespace Kruger.Marketplace.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("varchar(100)");
@@ -271,7 +283,7 @@ namespace Kruger.Marketplace.Data.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -282,13 +294,13 @@ namespace Kruger.Marketplace.Data.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -305,13 +317,13 @@ namespace Kruger.Marketplace.Data.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("varchar(100)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -324,7 +336,8 @@ namespace Kruger.Marketplace.Data.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
 
@@ -333,15 +346,15 @@ namespace Kruger.Marketplace.Data.Migrations
                         {
                             Id = "f96e5735-7f8a-49a7-8fe1-64304e70257d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "96fa875e-cac1-4b4f-8357-afd599a2cf92",
+                            ConcurrencyStamp = "bcdca5bf-167d-41eb-b47b-984b645a8149",
                             Email = "mail.teste@teste.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "MAIL.TESTE@TESTE.COM",
                             NormalizedUserName = "MAIL.TESTE@TESTE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELir8o/W80jaR21p99MhJnKq89mT/KtfLmIDoexqgiNGvDSHx3r0XrQ/sKC8JXHGcA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENA2RjJ4jnsw0C4D6LFFHRriWH/yoMrh5JfGrf46u1jflvNnDgyd4Qg4AcCI3ixNTQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3a6b6f47-8dea-43ae-be65-26305d39d8e7",
+                            SecurityStamp = "df8fc39d-173c-476b-993e-a5c23d291f0e",
                             TwoFactorEnabled = false,
                             UserName = "mail.teste@teste.com"
                         });
@@ -351,7 +364,9 @@ namespace Kruger.Marketplace.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("varchar(100)");
@@ -373,9 +388,11 @@ namespace Kruger.Marketplace.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("ProviderDisplayName")
@@ -420,9 +437,11 @@ namespace Kruger.Marketplace.Data.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("Name")
+                        .HasMaxLength(128)
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("Value")

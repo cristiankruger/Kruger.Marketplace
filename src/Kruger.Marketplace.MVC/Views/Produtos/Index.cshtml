@@ -12,8 +12,8 @@
     ViewBag.Title = "Lista de Produtos";
     string ControllerName = "Produtos";
     Paged paged = new Paged(ControllerName, Model.TotalRecords, Model.Filter);
-    Search search = new Search(ControllerName, "busca");
-    string basePath = $"{arquivoSettings.Value.BasePath}{arquivoSettings.Value.Container}";
+    Search search = new Search(ControllerName, "busca");   
+    string basePath = $"{arquivoSettings.Value.BasePath}";
 }
 
 <div>

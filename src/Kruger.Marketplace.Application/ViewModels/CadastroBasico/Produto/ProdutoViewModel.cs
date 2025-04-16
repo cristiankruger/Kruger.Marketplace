@@ -44,10 +44,10 @@ namespace Kruger.Marketplace.Application.ViewModels.CadastroBasico.Produto
         
         public string Imagem { get; set; }
         
-        public string ImageUri { get; set; }
+        //public string ImageUri { get; set; }
 
-        [DisplayName("Imagem")]
-        public string ImageDisplayName { get; set; }
+        //[DisplayName("Imagem")]
+        //public string ImageDisplayName { get; set; }
 
         public string Categoria { get; set; }
 
@@ -61,8 +61,8 @@ namespace Kruger.Marketplace.Application.ViewModels.CadastroBasico.Produto
         public void SetImageProperties(string imagePath, string imageName)
         {
             Imagem = FileUpload is not null ? $"{Id}_{FileUpload.FileName}" : !string.IsNullOrEmpty(Imagem) ? Imagem : imageName;
-            ImageUri = $"{imagePath}{Imagem}";
-            ImageDisplayName = Imagem[37..];
+            //ImageUri = $"{imagePath}{Imagem}";
+            //ImageDisplayName = Imagem[37..];
         }
     }
 }

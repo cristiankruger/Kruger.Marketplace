@@ -7,7 +7,6 @@ using Kruger.Marketplace.Application.App;
 using Kruger.Marketplace.Application.Expressions;
 using Kruger.Marketplace.Application.ViewModels.CadastroBasico.Produto;
 using Kruger.Marketplace.Application.ViewModels.Pagina;
-using LinqKit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +35,7 @@ namespace Kruger.Marketplace.API.Controllers.V1
             _mapper = mapper;
             _produtoService = produtoService;
             _arquivoSettings = arquivoSettings.Value;
-            imageBasePath = $"{_arquivoSettings.BasePath}{_arquivoSettings.Container}";
+            imageBasePath = $"~{_arquivoSettings.BasePath}";
         }
 
 
@@ -59,12 +58,7 @@ namespace Kruger.Marketplace.API.Controllers.V1
                                                                                                     filter.PageSize,
                                                                                                     filter.Desc))
             };
-
-            paged.PagedData.ForEach((produtoViewModel) =>
-            {
-                produtoViewModel.SetImageProperties(imageBasePath, produtoViewModel.Imagem);
-            });
-
+            
             return CustomResponse(HttpStatusCode.OK, paged);
         }
 
