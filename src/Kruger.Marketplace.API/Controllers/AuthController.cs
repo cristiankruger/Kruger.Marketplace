@@ -14,7 +14,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 
-namespace Kruger.Marketplace.API.Controllers.V1
+namespace Kruger.Marketplace.API.Controllers
 {
     [Route("api/[controller]")]
     public class AuthController(INotificador notificador,

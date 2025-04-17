@@ -13,7 +13,7 @@ using System.Data;
 using System.Linq.Expressions;
 using System.Net;
 
-namespace Kruger.Marketplace.API.Controllers.V1
+namespace Kruger.Marketplace.API.Controllers
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]

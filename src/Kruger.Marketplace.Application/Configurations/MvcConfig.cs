@@ -13,7 +13,7 @@ namespace Kruger.Marketplace.Application.Configurations
     {
         #region IServiceCollection
         public static IServiceCollection MvcBehaviorConfig(this IServiceCollection services)
-        {
+        {           
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
