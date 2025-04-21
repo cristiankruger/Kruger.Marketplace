@@ -1,20 +1,20 @@
 ﻿using Kruger.Marketplace.Business.Interfaces.Notificador;
-using Kruger.Marketplace.Business.Interfaces.Repositories;
+using Kruger.Marketplace.Business.Interfaces.Repositories.CadastroBasico;
 using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
 using Kruger.Marketplace.Business.Models.CadastroBasico;
 using LinqKit;
 
 namespace Kruger.Marketplace.Business.Services.CadastroBasico
 {
-    public class VendedorService(IUnitOfWork unitOfWork,
+    public class VendedorService(IVendedorRepository vendedorRepository,
                                  INotificador notificador) : BaseService(notificador), IVendedorService
     {
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IVendedorRepository _vendedorRepository = vendedorRepository;
 
         #region READ
         public async Task<Vendedor> GetById(Guid id)
         {
-            return await _unitOfWork.VendedorRepository.GetById(id);
+            return await _vendedorRepository.GetById(id);
         }
         #endregion
 
@@ -23,7 +23,7 @@ namespace Kruger.Marketplace.Business.Services.CadastroBasico
         {
             if (!Validate(vendedor, true)) return false;
 
-            await _unitOfWork.VendedorRepository.Add(vendedor);
+            await _vendedorRepository.Add(vendedor);
 
             return true;
         }      
@@ -32,13 +32,13 @@ namespace Kruger.Marketplace.Business.Services.CadastroBasico
         #region METHODS
         public void Dispose()
         {
-            _unitOfWork?.Dispose();
+            _vendedorRepository?.Dispose();
             GC.SuppressFinalize(this);
         }
 
         public async Task SaveChanges()
         {
-            await _unitOfWork.SaveChanges();
+            await _vendedorRepository.SaveChanges();
         }
 
         private bool Validate(Vendedor vendedor, bool isInsert = false)
@@ -48,7 +48,7 @@ namespace Kruger.Marketplace.Business.Services.CadastroBasico
             var expression = PredicateBuilder.New<Vendedor>(m => m.Nome == vendedor.Nome);
             if (!isInsert) expression = expression.And(m => m.Id != vendedor.Id);
 
-            if (_unitOfWork.VendedorRepository.Search(expression).Result.Any())
+            if (_vendedorRepository.Search(expression).Result.Any())
                 return NotificarError("Vendedor já cadastrada.");
 
             return true;

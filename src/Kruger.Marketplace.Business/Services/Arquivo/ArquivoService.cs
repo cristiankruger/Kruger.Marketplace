@@ -13,13 +13,13 @@ namespace Kruger.Marketplace.Business.Services.Arquivo
                                 IOptions<ArquivoSettings> arquivoSettings) : BaseService(notificador), IArquivoService
     {
         private readonly ArquivoSettings _arquivoSettings = arquivoSettings.Value;
-        private readonly IWebHostEnvironment _environment = environment;
+        private readonly IWebHostEnvironment _environment = environment;        
 
         public bool Delete(string fileName)
         {
             if (fileName == _arquivoSettings.DefaultImage) return true;
 
-            var filePath = $"{_arquivoSettings.BasePath}{_arquivoSettings.Container}{fileName}";
+            var filePath = $"{_environment.WebRootPath}{_arquivoSettings.BasePath.Replace("~", string.Empty)}{fileName}";
 
             if (File.Exists(filePath))
                 File.Delete(filePath);
@@ -38,7 +38,7 @@ namespace Kruger.Marketplace.Business.Services.Arquivo
                 return false;
             }
 
-            var filePath = $"{_environment.WebRootPath}{_arquivoSettings.BasePath.Replace("~", string.Empty)}{_arquivoSettings.Container}{fileName}";
+            var filePath = $"{_environment.WebRootPath}{_arquivoSettings.BasePath.Replace("~",string.Empty)}{fileName}";
 
             using Stream fileStream = new FileStream(filePath, FileMode.Create);
 

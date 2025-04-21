@@ -21,11 +21,11 @@ Cristian Kruger
 
 - **Autenticação e Autorização:** Implementação do ASP.NET Identity para diferenciar usuários autenticados e não autenticados.
 
-- **Camada CrossCutting:** Camada para reaproveitamento de código que seria duplicado tanto pelo MVC quanto pela API (ViewModel, Injeção de dependência e outras Configurações).
+- **Camada Application:** Camada para reaproveitamento de código que seria duplicado tanto pelo MVC quanto pela API (ViewModel, Injeção de dependência e outras Configurações).
 
-- **Camada de Negócios:** Aplicação de regras de negócio utilizando o FluentValidation e boas práticas de desenvolvimento (SOLID).
+- **Camada Business:** Aplicação de regras de negócio utilizando o FluentValidation e boas práticas de desenvolvimento (SOLID).
 
-- **Acesso a Dados:** Implementação de acesso ao banco de dados através do ORM Entity Framework Core.
+- **Acesso Data:** Implementação de acesso ao banco de dados através do ORM Entity Framework Core.
 
 ---
 # 3. Tecnologias Utilizadas:
@@ -38,7 +38,6 @@ Cristian Kruger
   - FluentValidation
   - Automapper
   - Padrão Repository
-  - Padrão Unit Of Work
 - Banco de Dados: SQL Server/SQLite
 - Autenticação e Autorização:
   - ASP.NET Core Identity
@@ -59,9 +58,9 @@ Cristian Kruger
 +-- src/
 |   +-- Kruger.Marketplace.Api/ → API RESTful.
 |   +-- Kruger.Marketplace.MVC/ → Projeto MVC.
-|   +-- Kruger.Marketplace.CrossCutting/ → Projeto para configuração de ViewModels consumidas pela API e MVC e Configurações communs aos projetos MVC e API.
+|   +-- Kruger.Marketplace.Application/ → Projeto para configuração de ViewModels consumidas pela API e MVC e Configurações communs aos projetos MVC e API.
 |   +-- Kruger.Marketplace.Business/ → Mapeamento das entidades, Aplicação de validações e regras de negócio seguindo as boas práticas do SOLID.
-|   +-- Kruger.Marketplace.Data/ → Mapeamento de Modelos de Dados, e Configuração do EF Core.
+|   +-- Kruger.Marketplace.Data/ → Mapeamento de Modelos de Dados, Configuração do EF Core e Seed do banco de dados (/Seed/SeedDatabase.cs).
 +-- .gitignore → Confguração de quais arquivos o Git não deve versionar.
 +-- FEEDBACK.md → Arquivo para Consolidação dos Feedbacks
 +-- Kruger.Marketplace.sln → solution do projeto
@@ -96,6 +95,11 @@ cd Kruger.Marketplace
 No arquivo `appsettings.json`, configure a string de conexão do SQL Server (caso deseje executar em modo não "development"). Para execução em modo "Development" (debug), basta executar o projeto (irá subir uma instancia do `SQLite`).
 
 Execute o projeto para que a configuração do Seed crie o banco e popule com os dados básicos.
+
+**As Migrations são aplicadas de forma automática através do método de extensão `MigrateDatabase() => src/Kruger.Marketplace.Application/Configurations/DatabaseConfig.cs`;**
+**Uma carga inicial é feita na base de dados através do método `OnModelCreating() => src/Kruger.Marketplace.Data/Context/AppDbContext.cs`, com base no método `Seed(modelBuilder) => src/Kruger.Marketplace.Data/Seed/DeedDatabase.cs`;**
+**Credenciais default do banco: usuário &rarr; `teste@teste.com` | senha &rarr; `@Aa12345`**
+
 
 #### Executar a Aplicação MVC:
 
@@ -134,13 +138,4 @@ O arquivo FEEDBACK.md é um resumo das avaliações do instrutor e deverá ser m
 
 # 10. TODO:
 
-- MVC:
-   - Sobrescrever páginas de register e login do ASP.NET Identity;
-   - Cadastrar Vendedor ao cadastrar IdentityUser (vincular Ids, nome, e-mail e senha);
-   - Upload de imagem em produtos;
-   - Tratamento de erros em produtos;
-   - Finalizar página de criação, edição e exclusão de produtos;
-- API:
-   - Implementar ASP.NET Identity;
-   - Controller de Auth;
-   - Controller de Produtos;
+- Upload de imagens para um serviço externo (AWS S3 ou Azure Blob Storage)

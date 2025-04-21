@@ -12,5 +12,6 @@ namespace Kruger.Marketplace.Business.Interfaces.Repositories
         Task<int> Add(TEntity entity);
         Task<int> Update(TEntity entity);
         Task<int> Delete(Guid id);
+        Task<int> SaveChanges();
     }
 }

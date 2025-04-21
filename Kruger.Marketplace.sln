@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.WebApps", "1.WebApps", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.Presentation", "1.Presentation", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.CrossCutting", "2.CrossCutting", "{52530AC6-3D45-4332-A54B-22A0BC913FB0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Application", "2.Application", "{52530AC6-3D45-4332-A54B-22A0BC913FB0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Business", "3.Business", "{39094560-A427-4BDF-B64E-B3605FAD7787}"
 EndProject
@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kruger.Marketplace.API", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kruger.Marketplace.MVC", "src\Kruger.Marketplace.MVC\Kruger.Marketplace.MVC.csproj", "{E888BB74-8735-4762-9FF5-8272A45E707E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kruger.Marketplace.CrossCutting", "src\Kruger.Marketplace.CrossCutting\Kruger.Marketplace.CrossCutting.csproj", "{375BC300-5C7A-4A7B-B5F5-E30C9EC1DB93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kruger.Marketplace.Application", "src\Kruger.Marketplace.Application\Kruger.Marketplace.Application.csproj", "{9BA79376-3249-34A2-2FD4-F64566404877}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,10 @@ Global
 		{E888BB74-8735-4762-9FF5-8272A45E707E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E888BB74-8735-4762-9FF5-8272A45E707E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E888BB74-8735-4762-9FF5-8272A45E707E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{375BC300-5C7A-4A7B-B5F5-E30C9EC1DB93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{375BC300-5C7A-4A7B-B5F5-E30C9EC1DB93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{375BC300-5C7A-4A7B-B5F5-E30C9EC1DB93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{375BC300-5C7A-4A7B-B5F5-E30C9EC1DB93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BA79376-3249-34A2-2FD4-F64566404877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA79376-3249-34A2-2FD4-F64566404877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BA79376-3249-34A2-2FD4-F64566404877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BA79376-3249-34A2-2FD4-F64566404877}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,7 +56,7 @@ Global
 		{4FD0A528-79B5-4B7D-8C82-0EC1A884C2E3} = {0BD1AC3D-F05C-4CAF-ACB5-71F7D91FF501}
 		{6845122F-559E-42BA-8C18-CD63553DD617} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{E888BB74-8735-4762-9FF5-8272A45E707E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{375BC300-5C7A-4A7B-B5F5-E30C9EC1DB93} = {52530AC6-3D45-4332-A54B-22A0BC913FB0}
+		{9BA79376-3249-34A2-2FD4-F64566404877} = {52530AC6-3D45-4332-A54B-22A0BC913FB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA27DAA6-88A7-499B-ACC0-20BB375FB90A}

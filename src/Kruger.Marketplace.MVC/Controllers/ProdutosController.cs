@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Produto;
+using Kruger.Marketplace.Application.ViewModels.CadastroBasico.Produto;
 using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
 using Kruger.Marketplace.Business.Models.CadastroBasico;
 using Kruger.Marketplace.Business.Interfaces.Notificador;
 using AutoMapper;
-using Kruger.Marketplace.CrossCutting.ViewModels.Pagina;
-using Kruger.Marketplace.CrossCutting.Expressions;
+using Kruger.Marketplace.Application.ViewModels.Pagina;
+using Kruger.Marketplace.Application.Expressions;
 using Microsoft.AspNetCore.Authorization;
-using Kruger.Marketplace.CrossCutting.App;
-using Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Categoria;
+using Kruger.Marketplace.Application.App;
+using Kruger.Marketplace.Application.ViewModels.CadastroBasico.Categoria;
 using Microsoft.Extensions.Options;
 using Kruger.Marketplace.Business.Models.Settings;
-using LinqKit;
 
 namespace Kruger.Marketplace.MVC.Controllers
 {
@@ -22,8 +21,7 @@ namespace Kruger.Marketplace.MVC.Controllers
         private readonly IMapper _mapper;
         private readonly IProdutoService _produtoService;
         private readonly ICategoriaService _categoriaService;
-        private readonly ArquivoSettings _arquivoSettings;
-        private readonly string imageBasePath;
+        private readonly ArquivoSettings _arquivoSettings;        
 
         public ProdutosController(IProdutoService produtoService,
                                   ICategoriaService categoriaService,
@@ -36,7 +34,6 @@ namespace Kruger.Marketplace.MVC.Controllers
             _produtoService = produtoService;
             _categoriaService = categoriaService;
             _arquivoSettings = arquivoSettings.Value;
-            imageBasePath = $"{_arquivoSettings.BasePath}{_arquivoSettings.Container}";
         }
 
         [AllowAnonymous]
@@ -66,8 +63,6 @@ namespace Kruger.Marketplace.MVC.Controllers
                                                                                                     filter.Desc))
             };
 
-            paged.PagedData.ForEach(produtoViewModel => produtoViewModel.SetImageProperties(imageBasePath, _arquivoSettings.DefaultImage));
-
             return View(paged);
         }
 
@@ -82,7 +77,7 @@ namespace Kruger.Marketplace.MVC.Controllers
         public async Task<IActionResult> Create()
         {
             var produtoViewModel = await PopularCategorias(new ProdutoViewModel());
-            produtoViewModel.SetImageProperties(imageBasePath, _arquivoSettings.DefaultImage);
+            produtoViewModel.SetImageProperties(_arquivoSettings.DefaultImage);
             return View(produtoViewModel);
         }
 
@@ -92,7 +87,7 @@ namespace Kruger.Marketplace.MVC.Controllers
         {
             produtoViewModel = await PopularCategorias(produtoViewModel);
             produtoViewModel.SetVendedorId(UserId);
-            produtoViewModel.SetImageProperties(imageBasePath, _arquivoSettings.DefaultImage);
+            produtoViewModel.SetImageProperties(_arquivoSettings.DefaultImage);
 
             if (!ModelState.IsValid)
                 return View(produtoViewModel);
@@ -103,7 +98,7 @@ namespace Kruger.Marketplace.MVC.Controllers
 
                 return View(produtoViewModel);
             }
-
+            
             await _produtoService.SaveChanges();
 
             TempData["Sucesso"] = "Produto Cadastrado.";
@@ -128,7 +123,7 @@ namespace Kruger.Marketplace.MVC.Controllers
                 return View(produtoViewModel);
 
             produtoViewModel.SetVendedorId(UserId);
-            produtoViewModel.SetImageProperties(imageBasePath, produtoViewModel.Imagem);
+            produtoViewModel.SetImageProperties(produtoViewModel.Imagem);
 
             if (!await _produtoService.Update(_mapper.Map<Produto>(produtoViewModel)))
             {
@@ -184,7 +179,7 @@ namespace Kruger.Marketplace.MVC.Controllers
                 return NotFound();
 
             produtoViewModel = await PopularCategorias(produtoViewModel);
-            produtoViewModel.SetImageProperties(imageBasePath, produtoViewModel.Imagem);
+            produtoViewModel.SetImageProperties(produtoViewModel.Imagem);
 
             return View(produtoViewModel);
         }

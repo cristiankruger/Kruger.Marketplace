@@ -1,15 +1,19 @@
-﻿@using Kruger.Marketplace.CrossCutting.ViewModels.CadastroBasico.Produto
-@using Kruger.Marketplace.CrossCutting.ViewModels.Pagina
+﻿@using Kruger.Marketplace.Application.ViewModels.CadastroBasico.Produto
+@using Kruger.Marketplace.Application.ViewModels.Pagina
+@using Kruger.Marketplace.Business.Models.Settings
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.Extensions.Options
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject IOptions<ArquivoSettings> arquivoSettings
 @model PagedViewModel<ProdutoViewModel>
 
 @{
     ViewBag.Title = "Lista de Produtos";
     string ControllerName = "Produtos";
     Paged paged = new Paged(ControllerName, Model.TotalRecords, Model.Filter);
-    Search search = new Search(ControllerName, "busca");
+    Search search = new Search(ControllerName, "busca");   
+    string basePath = $"{arquivoSettings.Value.BasePath}";
 }
 
 <div>
@@ -106,7 +110,7 @@
                                     @Html.DisplayTextFor(modelItem => item.Categoria)
                                 </td>
                                 <td>
-                                    <img src="@Url.Content(item.ImageUri)" style="width: 70px; height:70px;" alt="@item.ImageDisplayName" />
+                                    <img src='@Url.Content($"{basePath}{item.Imagem}")' style="width: 70px; height:70px;" alt="@item.Imagem[37..]" />
                                 </td>
                                 <td style="text-align:right">
                                     <button onclick="window.location.href = '@Url.Action("Details", ControllerName, new {id = item.Id})'; return false;" class="btn btn-outline-warning btn-sm" data-toggle="tooltip" data-placement="top" title="Detalhes">
@@ -144,6 +148,10 @@
             $("#pageSize").change(function(){
                 $("#frmsearch").submit();
             });
+
+            setTimeout(function() {
+              $('#modalAlert').fadeOut('slow');
+            }, 5000);
         });
     </script>
 }

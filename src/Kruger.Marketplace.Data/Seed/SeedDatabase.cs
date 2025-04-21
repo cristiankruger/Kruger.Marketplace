@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-using Kruger.Marketplace.Business.Models.CadastroBasico;
+﻿using Kruger.Marketplace.Business.Models.CadastroBasico;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,10 +20,10 @@ namespace Kruger.Marketplace.Data.Seed
                 new IdentityUser
                 {
                     Id = vendedorId.ToString(),
-                    UserName = "mail.teste@teste.com",
-                    NormalizedUserName = "MAIL.TESTE@TESTE.COM",
-                    NormalizedEmail= "MAIL.TESTE@TESTE.COM",
-                    Email = "mail.teste@teste.com",
+                    UserName = "teste@teste.com",
+                    NormalizedUserName = "TESTE@TESTE.COM",
+                    NormalizedEmail= "TESTE@TESTE.COM",
+                    Email = "teste@teste.com",
                     PasswordHash = senha,
                     EmailConfirmed = true,
                     LockoutEnabled = true,

@@ -1,4 +1,24 @@
-using Kruger.Marketplace.API;
-using Kruger.Marketplace.CrossCutting.Extensions;
+using Kruger.Marketplace.Application.Configurations;
 
-WebApplication.CreateBuilder(args).UseStartup<Startup>();
+var builder = WebApplication.CreateBuilder(args);
+
+builder.AddApiBehaviorConfig()
+       .AddDatabase()
+       .AddAppSettingsConfiguration()
+       .AddArquivoSettingsConfiguration()
+       .AddJWTConfiguration()
+       .AddAutoMapper()
+       .AddCorsConfig()
+       .AddEndPointsExplorer()
+       .AddSwaggerConfig()
+       .AddIdentityConfig()
+       .ResolveDependecies();
+
+var app = builder.Build();
+
+app.UseApiConfiguration()
+   .UseSwaggerConfig()
+   .UseEndPointsConfiguration()
+   .MigrateDatabase().Wait();
+
+app.Run();

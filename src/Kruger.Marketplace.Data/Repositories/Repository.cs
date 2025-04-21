@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-using Kruger.Marketplace.Business.Interfaces.Repositories;
+﻿using Kruger.Marketplace.Business.Interfaces.Repositories;
 using Kruger.Marketplace.Business.Models;
 using Kruger.Marketplace.Data.Context;
 using Kruger.Marketplace.Data.Extensions;
@@ -62,6 +60,11 @@ namespace Kruger.Marketplace.Data.Repositories
             var e = await DbSet.FindAsync(id);
             DbSet.Remove(e);
             return 1;
+        }
+
+        public virtual async Task<int> SaveChanges()
+        {
+            return await Db.SaveChangesAsync();
         }
         #endregion
 

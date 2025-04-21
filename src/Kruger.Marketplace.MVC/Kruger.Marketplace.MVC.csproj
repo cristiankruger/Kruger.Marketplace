@@ -15,16 +15,17 @@
 	</ItemGroup>
 
 	<ItemGroup>		
+		<PackageReference Include="BuildBundlerMinifier2022" Version="2.9.11" />		
 		<PackageReference Include="Duende.IdentityModel" Version="7.0.0" />		
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.15" />		
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.15" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.15" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.15" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.15">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.15" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.15" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.15" />		
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.15">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -34,7 +35,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Kruger.Marketplace.CrossCutting\Kruger.Marketplace.CrossCutting.csproj" />
+	  <ProjectReference Include="..\Kruger.Marketplace.Application\Kruger.Marketplace.Application.csproj" />
 	  <ProjectReference Include="..\Kruger.Marketplace.Data\Kruger.Marketplace.Data.csproj" />
 	</ItemGroup>
 

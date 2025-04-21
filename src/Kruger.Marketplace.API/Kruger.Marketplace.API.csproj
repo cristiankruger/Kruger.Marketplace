@@ -20,8 +20,8 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <ProjectReference Include="..\Kruger.Marketplace.Application\Kruger.Marketplace.Application.csproj" />
 	  <ProjectReference Include="..\Kruger.Marketplace.Business\Kruger.Marketplace.Business.csproj" />
-	  <ProjectReference Include="..\Kruger.Marketplace.CrossCutting\Kruger.Marketplace.CrossCutting.csproj" />
 	</ItemGroup>
 	
 	<ItemGroup>

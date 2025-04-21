@@ -1,4 +1,16 @@
-using Kruger.Marketplace.CrossCutting.Extensions;
-using Kruger.Marketplace.MVC;
+using Kruger.Marketplace.Application.Configurations;
 
-WebApplication.CreateBuilder(args).UseStartup<Startup>();
+var builder = WebApplication.CreateBuilder(args);
+
+builder.MvcBehaviorConfig()
+       .AddDatabase()
+       .AddAppSettingsConfiguration()
+       .AddArquivoSettingsConfiguration()
+       .ResolveDependecies();
+
+var app = builder.Build();
+
+app.UseMvcConfiguration()
+   .MigrateDatabase().Wait();
+
+app.Run();

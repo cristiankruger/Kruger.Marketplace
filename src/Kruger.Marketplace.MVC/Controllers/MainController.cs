@@ -1,7 +1,7 @@
 ﻿using Kruger.Marketplace.Business.Interfaces.Notificador;
 using Kruger.Marketplace.Business.Notificacoes;
-using Kruger.Marketplace.CrossCutting.App;
-using Kruger.Marketplace.CrossCutting.Configurations;
+using Kruger.Marketplace.Application.App;
+using Kruger.Marketplace.Application.Configurations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -19,13 +19,11 @@ namespace Kruger.Marketplace.MVC.Controllers
             _notificador = notificador;
             _user = user;
 
-
-
             if (user.IsAuthenticated())
             {
                 //TODO: Trocar para o vendedor logado
                 //Hardcode (FK do unico vendedor no arquivo seedDatabase)
-                UserId = Guid.Parse("f96e5735-7f8a-49a7-8fe1-64304e70257d");//user.GetUserId();
+                UserId = user.GetUserId();
                 UserName = user.GetUsername();
             }
         }

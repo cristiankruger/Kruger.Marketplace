@@ -1,6 +1,4 @@
-﻿#nullable disable
-
-using Kruger.Marketplace.Business.Models.CadastroBasico;
+﻿using Kruger.Marketplace.Business.Models.CadastroBasico;
 using Kruger.Marketplace.Data.Seed;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
