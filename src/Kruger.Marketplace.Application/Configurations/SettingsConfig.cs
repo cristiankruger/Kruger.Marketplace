@@ -1,4 +1,5 @@
 ﻿using Kruger.Marketplace.Business.Models.Settings;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
@@ -8,20 +9,22 @@ namespace Kruger.Marketplace.Application.Configurations
     [ExcludeFromCodeCoverage]
     public static class SettingsConfig
     {
-        public static IServiceCollection AddAppSettingsConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static WebApplicationBuilder AddAppSettingsConfiguration(this WebApplicationBuilder builder)
         {
-            var section = configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(section);
+            builder.Services.Configure<AppSettings>(
+                builder.Configuration.GetSection(AppSettings.ConfigName)
+            );
 
-            return services;
+            return builder;
         }
 
-        public static IServiceCollection AddArquivoSettingsConfiguration(this IServiceCollection services, IConfiguration configuration)
+        public static WebApplicationBuilder AddArquivoSettingsConfiguration(this WebApplicationBuilder builder)
         {
-            var section = configuration.GetSection("ArquivoSettings");
-            services.Configure<ArquivoSettings>(section);
+            builder.Services.Configure<ArquivoSettings>(
+                builder.Configuration.GetSection(ArquivoSettings.ConfigName)
+            );
 
-            return services;
+            return builder;
         }
     }
 }

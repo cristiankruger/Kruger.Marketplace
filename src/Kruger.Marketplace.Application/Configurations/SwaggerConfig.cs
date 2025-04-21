@@ -8,40 +8,41 @@ namespace Kruger.Marketplace.Application.Configurations
     [ExcludeFromCodeCoverage]
     public static class SwaggerConfig
     {
-        public static IServiceCollection AddSwaggerConfig(this IServiceCollection services)
+        public static WebApplicationBuilder AddSwaggerConfig(this WebApplicationBuilder builder)
         {
-            services.AddSwaggerGen(static c =>
-            {
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "Insira o token JWT desta maneira: Bearer {seu token}",
-                    Name = "Authorization",
-                    Scheme = "Bearer",
-                    BearerFormat = "JWT",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey
-                });
+            builder.Services
+                   .AddSwaggerGen(static c =>
+                   {
+                       c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                       {
+                           Description = "Insira o token JWT desta maneira: Bearer {seu token}",
+                           Name = "Authorization",
+                           Scheme = "Bearer",
+                           BearerFormat = "JWT",
+                           In = ParameterLocation.Header,
+                           Type = SecuritySchemeType.ApiKey
+                       });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        Array.Empty<string>()
-                    }
-                });
-            });
+                       c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                       {
+                           {
+                               new OpenApiSecurityScheme
+                               {
+                                   Reference = new OpenApiReference
+                                   {
+                                       Type = ReferenceType.SecurityScheme,
+                                       Id = "Bearer"
+                                   }
+                               },
+                               Array.Empty<string>()
+                           }
+                       });
+                   });
 
-            return services;
+            return builder;
         }
 
-        public static IApplicationBuilder UseSwaggerConfig(this IApplicationBuilder app)
+        public static WebApplication UseSwaggerConfig(this WebApplication app)
         {
             app.UseSwagger()
                .UseSwaggerUI();

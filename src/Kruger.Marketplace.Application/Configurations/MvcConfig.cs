@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 
 namespace Kruger.Marketplace.Application.Configurations
 {
@@ -12,32 +15,61 @@ namespace Kruger.Marketplace.Application.Configurations
     public static class MvcConfig
     {
         #region IServiceCollection
-        public static IServiceCollection MvcBehaviorConfig(this IServiceCollection services)
-        {           
-            services.AddDatabaseDeveloperPageExceptionFilter();
+        public static WebApplicationBuilder MvcBehaviorConfig(this WebApplicationBuilder builder)
+        {
+            builder.Configuration
+                   .SetBasePath(builder.Environment.ContentRootPath)
+                   .AddJsonFile("appsettings.json", true, true)
+                   .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
+                   .AddEnvironmentVariables();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<AppDbContext>();
+            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddControllersWithViews();
-            services.AddAuthorization();
-            services.AddRazorPages();
+            builder.Services
+                   .AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                   .AddEntityFrameworkStores<AppDbContext>();
 
-            return services;
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                MvcOptionsConfig.ConfigureModelBindingMessages(options.ModelBindingMessageProvider);
+            });
+
+            builder.Services.AddCookiePolicy(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.ConsentCookieValue = "true";
+            });
+
+            builder.Services.AddAuthorization();
+            
+            builder.Services.AddRazorPages();
+
+            builder.Services.AddAutoMapper(typeof(AutomapperConfig));
+
+            return builder;
         }
         #endregion
 
         #region WebApplication
         public static IApplicationBuilder UseMvcConfiguration(this WebApplication app)
         {
-            if (!app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/erro/500");
+                app.UseStatusCodePagesWithRedirects("/erro/{0}");
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection()
+            app.UseGlobalizationConfig()
+               .UseHttpsRedirection()
                .UseStaticFiles()
+               .UseCookiePolicy()
                .UseRouting()
                .UseAuthentication()
                .UseAuthorization();

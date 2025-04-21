@@ -6,27 +6,35 @@ using Microsoft.Extensions.Hosting;
 using System.Diagnostics.CodeAnalysis;
 using Kruger.Marketplace.Data.Context;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace Kruger.Marketplace.Application.Configurations
 {
     [ExcludeFromCodeCoverage]
     public static class ApiConfig
     {
-        #region IServiceCollection
-        public static IServiceCollection AddApiBehaviorConfig(this IServiceCollection services)
+        #region WebApplicationBuilder
+        public static WebApplicationBuilder AddApiBehaviorConfig(this WebApplicationBuilder builder)
         {
-            services.AddControllers()
-                    .ConfigureApiBehaviorOptions(options =>
-                    {
-                        options.SuppressModelStateInvalidFilter = true;
-                    });
+            builder.Configuration
+                   .SetBasePath(builder.Environment.ContentRootPath)
+                   .AddJsonFile("appsettings.json", true, true)
+                   .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
+                   .AddEnvironmentVariables();
 
-            return services;
+            builder.Services
+                   .AddControllers()
+                   .ConfigureApiBehaviorOptions(options =>
+                   {
+                       options.SuppressModelStateInvalidFilter = true;
+                   });
+
+            return builder;
         }
 
-        public static IServiceCollection AddCorsConfig(this IServiceCollection services)
+        public static WebApplicationBuilder AddCorsConfig(this WebApplicationBuilder builder)
         {
-            services.AddCors(options =>
+            builder.Services.AddCors(options =>
             {
                 options.AddPolicy("Default", builder => builder.AllowAnyOrigin()
                                                                .AllowAnyMethod()
@@ -38,23 +46,38 @@ namespace Kruger.Marketplace.Application.Configurations
                                                                   .AllowAnyHeader()
                                                                   );
             });
-            
-            return services;
+
+            return builder;
         }
 
-        public static IServiceCollection AddIdentityConfig(this IServiceCollection services)
+        public static WebApplicationBuilder AddIdentityConfig(this WebApplicationBuilder builder)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                    .AddRoles<IdentityRole>()
-                    .AddEntityFrameworkStores<AppDbContext>()
-                    .AddErrorDescriber<IdentityErrorsConfig>();            
+            builder.Services
+                   .AddIdentity<IdentityUser, IdentityRole>()
+                   .AddRoles<IdentityRole>()
+                   .AddEntityFrameworkStores<AppDbContext>()
+                   .AddErrorDescriber<IdentityErrorsConfig>();
 
-            return services;
+            return builder;
+        }
+
+        public static WebApplicationBuilder AddAutoMapper(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddAutoMapper(typeof(AutomapperConfig));
+
+            return builder;
+        }
+
+        public static WebApplicationBuilder AddEndPointsExplorer(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddEndpointsApiExplorer();
+
+            return builder;
         }
         #endregion
 
-        #region IApplicationBuilder
-        public static IApplicationBuilder UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
+        #region WebApplication
+        public static WebApplication UseApiConfiguration(this WebApplication app)
         {
             app.Use(async (context, next) =>
             {
@@ -62,7 +85,7 @@ namespace Kruger.Marketplace.Application.Configurations
                 await next();
             });
 
-            if (!env.IsDevelopment())
+            if (!app.Environment.IsDevelopment())
             {
                 app.UseCors("Production");
                 app.UseHsts();
@@ -73,9 +96,10 @@ namespace Kruger.Marketplace.Application.Configurations
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection()
+            app.UseGlobalizationConfig()
+               .UseHttpsRedirection()
                .UseMiddleware<ExceptionMiddleware>()
-               .UseMiddleware<SecurityMiddleware>(env)
+               .UseMiddleware<SecurityMiddleware>(app.Environment)
                .UseRouting()
                .UseAuthentication()
                .UseAuthorization();
@@ -89,7 +113,7 @@ namespace Kruger.Marketplace.Application.Configurations
             {
                 endpoints.MapControllers();
             });
-           
+
             return app;
         }
         #endregion

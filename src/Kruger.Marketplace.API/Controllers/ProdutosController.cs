@@ -24,7 +24,6 @@ namespace Kruger.Marketplace.API.Controllers
         private readonly IMapper _mapper;
         private readonly IProdutoService _produtoService;
         private readonly ArquivoSettings _arquivoSettings;
-        private readonly string imageBasePath;
 
         public ProdutosController(IProdutoService produtoService,
                                   IMapper mapper,
@@ -34,8 +33,7 @@ namespace Kruger.Marketplace.API.Controllers
         {
             _mapper = mapper;
             _produtoService = produtoService;
-            _arquivoSettings = arquivoSettings.Value;
-            imageBasePath = $"~{_arquivoSettings.BasePath}";
+            _arquivoSettings = arquivoSettings.Value;        
         }
 
 
@@ -87,7 +85,7 @@ namespace Kruger.Marketplace.API.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             produtoViewModel.SetVendedorId(UserId);
-            produtoViewModel.SetImageProperties(imageBasePath, produtoViewModel.Imagem);
+            produtoViewModel.SetImageProperties(produtoViewModel.Imagem);
 
             if (!await _produtoService.Add(_mapper.Map<Produto>(produtoViewModel)))
                 return CustomResponse(HttpStatusCode.BadRequest);
@@ -112,7 +110,7 @@ namespace Kruger.Marketplace.API.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             produtoViewModel.SetVendedorId(UserId);
-            produtoViewModel.SetImageProperties(imageBasePath, produtoViewModel.Imagem);
+            produtoViewModel.SetImageProperties(produtoViewModel.Imagem);
 
             if (!await _produtoService.Update(_mapper.Map<Produto>(produtoViewModel)))
                 return CustomResponse(HttpStatusCode.BadRequest);

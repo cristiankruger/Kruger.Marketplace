@@ -11,19 +11,23 @@ namespace Kruger.Marketplace.Application.Configurations
     [ExcludeFromCodeCoverage]
     public static class DatabaseConfig
     {
-        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration, IHostEnvironment env)
+        public static WebApplicationBuilder AddDatabase(this WebApplicationBuilder builder)
         {
+            var env = builder.Environment;
+            var configuration = builder.Configuration;
 
             if (env.IsDevelopment())
-                services.AddDbContext<AppDbContext>(options => options.UseSqlite(configuration.GetConnectionString("DefaultConnectionLite"),
-                                                                                 opt => opt.CommandTimeout(45)
-                                                                                           .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
+                builder.Services
+                       .AddDbContext<AppDbContext>(options => options.UseSqlite(configuration.GetConnectionString("DefaultConnectionLite"),
+                                                                                opt => opt.CommandTimeout(45)
+                                                                                          .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
             else
-                services.AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                                                                                    opt => opt.CommandTimeout(45)
-                                                                                              .EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null)
-                                                                                              .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
-            return services;
+                builder.Services
+                       .AddDbContext<AppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                                                                                   opt => opt.CommandTimeout(45)
+                                                                                             .EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null)
+                                                                                             .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
+            return builder;
         }
 
         public static async Task<IApplicationBuilder> MigrateDatabase(this IApplicationBuilder app)

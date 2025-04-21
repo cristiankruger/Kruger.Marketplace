@@ -21,24 +21,19 @@ namespace Kruger.Marketplace.MVC.Controllers
         private readonly IMapper _mapper;
         private readonly IProdutoService _produtoService;
         private readonly ICategoriaService _categoriaService;
-        private readonly ArquivoSettings _arquivoSettings;
-        private readonly IWebHostEnvironment _environment;
-        private readonly string imageBasePath;
+        private readonly ArquivoSettings _arquivoSettings;        
 
         public ProdutosController(IProdutoService produtoService,
                                   ICategoriaService categoriaService,
                                   IMapper mapper,
                                   INotificador notificador,
                                   IAppIdentityUser user,
-                                  IWebHostEnvironment environment,
                                   IOptions<ArquivoSettings> arquivoSettings) : base(notificador, user)
         {
             _mapper = mapper;
             _produtoService = produtoService;
             _categoriaService = categoriaService;
             _arquivoSettings = arquivoSettings.Value;
-            _environment = environment;
-            imageBasePath = $"{_arquivoSettings.BasePath}";
         }
 
         [AllowAnonymous]
@@ -82,7 +77,7 @@ namespace Kruger.Marketplace.MVC.Controllers
         public async Task<IActionResult> Create()
         {
             var produtoViewModel = await PopularCategorias(new ProdutoViewModel());
-            produtoViewModel.SetImageProperties(imageBasePath, _arquivoSettings.DefaultImage);
+            produtoViewModel.SetImageProperties(_arquivoSettings.DefaultImage);
             return View(produtoViewModel);
         }
 
@@ -92,7 +87,7 @@ namespace Kruger.Marketplace.MVC.Controllers
         {
             produtoViewModel = await PopularCategorias(produtoViewModel);
             produtoViewModel.SetVendedorId(UserId);
-            produtoViewModel.SetImageProperties(imageBasePath, _arquivoSettings.DefaultImage);
+            produtoViewModel.SetImageProperties(_arquivoSettings.DefaultImage);
 
             if (!ModelState.IsValid)
                 return View(produtoViewModel);
@@ -128,7 +123,7 @@ namespace Kruger.Marketplace.MVC.Controllers
                 return View(produtoViewModel);
 
             produtoViewModel.SetVendedorId(UserId);
-            produtoViewModel.SetImageProperties(imageBasePath, produtoViewModel.Imagem);
+            produtoViewModel.SetImageProperties(produtoViewModel.Imagem);
 
             if (!await _produtoService.Update(_mapper.Map<Produto>(produtoViewModel)))
             {
@@ -184,7 +179,7 @@ namespace Kruger.Marketplace.MVC.Controllers
                 return NotFound();
 
             produtoViewModel = await PopularCategorias(produtoViewModel);
-            produtoViewModel.SetImageProperties(imageBasePath, produtoViewModel.Imagem);
+            produtoViewModel.SetImageProperties(produtoViewModel.Imagem);
 
             return View(produtoViewModel);
         }

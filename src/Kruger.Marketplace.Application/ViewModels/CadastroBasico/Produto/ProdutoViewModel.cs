@@ -26,6 +26,7 @@ namespace Kruger.Marketplace.Application.ViewModels.CadastroBasico.Produto
         [DisplayName("Preço")]
         [Range(0.01, int.MaxValue, ErrorMessage = "Informe um Preço maior que zero.")]
         [Required(ErrorMessage = "Informe um Preço.")]
+        [Moeda("Preço")]
         public decimal Preco { get; set; }
 
         [GuidNotEmpty("Categorias")]
@@ -43,12 +44,7 @@ namespace Kruger.Marketplace.Application.ViewModels.CadastroBasico.Produto
         public IFormFile FileUpload { get; set; }
         
         public string Imagem { get; set; }
-        
-        //public string ImageUri { get; set; }
-
-        //[DisplayName("Imagem")]
-        //public string ImageDisplayName { get; set; }
-
+               
         public string Categoria { get; set; }
 
         public IEnumerable<CategoriaViewModel> Categorias { get; set; }
@@ -58,11 +54,9 @@ namespace Kruger.Marketplace.Application.ViewModels.CadastroBasico.Produto
             VendedorId = id;
         }
 
-        public void SetImageProperties(string imagePath, string imageName)
+        public void SetImageProperties(string imageName)
         {
-            Imagem = FileUpload is not null ? $"{Id}_{FileUpload.FileName}" : !string.IsNullOrEmpty(Imagem) ? Imagem : imageName;
-            //ImageUri = $"{imagePath}{Imagem}";
-            //ImageDisplayName = Imagem[37..];
+            Imagem = FileUpload is not null ? $"{Id}_{FileUpload.FileName}" : !string.IsNullOrEmpty(Imagem) ? Imagem : imageName;           
         }
     }
 }

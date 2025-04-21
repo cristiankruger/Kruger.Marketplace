@@ -218,7 +218,7 @@ namespace Kruger.Marketplace.Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "f96e5735-7f8a-49a7-8fe1-64304e70257d", 0, "bcdca5bf-167d-41eb-b47b-984b645a8149", "mail.teste@teste.com", true, true, null, "MAIL.TESTE@TESTE.COM", "MAIL.TESTE@TESTE.COM", "AQAAAAIAAYagAAAAENA2RjJ4jnsw0C4D6LFFHRriWH/yoMrh5JfGrf46u1jflvNnDgyd4Qg4AcCI3ixNTQ==", null, false, "df8fc39d-173c-476b-993e-a5c23d291f0e", false, "mail.teste@teste.com" });
+                values: new object[] { "f96e5735-7f8a-49a7-8fe1-64304e70257d", 0, "ea685453-06bb-4ef1-b052-96fd402eada9", "teste@teste.com", true, true, null, "TESTE@TESTE.COM", "TESTE@TESTE.COM", "AQAAAAIAAYagAAAAEER10GhU13Zx3GH3cJWNUvq0j56gqEt9u7exj+Ead+YB4RlXHv2qy6x40W1zxUshhQ==", null, false, "6e5ea4a2-bdf2-42b4-a922-64f47e5cb131", false, "teste@teste.com" });
 
             migrationBuilder.InsertData(
                 table: "CATEGORIAS",
@@ -233,7 +233,7 @@ namespace Kruger.Marketplace.Data.Migrations
             migrationBuilder.InsertData(
                 table: "VENDEDORES",
                 columns: new[] { "Id", "Email", "Nome", "Senha" },
-                values: new object[] { new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d"), "mail.teste@teste.com", "mail.teste@teste.com", "AQAAAAIAAYagAAAAENA2RjJ4jnsw0C4D6LFFHRriWH/yoMrh5JfGrf46u1jflvNnDgyd4Qg4AcCI3ixNTQ==" });
+                values: new object[] { new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d"), "mail.teste@teste.com", "mail.teste@teste.com", "AQAAAAIAAYagAAAAEER10GhU13Zx3GH3cJWNUvq0j56gqEt9u7exj+Ead+YB4RlXHv2qy6x40W1zxUshhQ==" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -245,10 +245,10 @@ namespace Kruger.Marketplace.Data.Migrations
                 columns: new[] { "Id", "CategoriaId", "Descricao", "Estoque", "Imagem", "Nome", "Preco", "VendedorId" },
                 values: new object[,]
                 {
-                    { new Guid("1a8a7249-e705-4b54-ae6e-528cbaeef9bb"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "mouse com fio", 20, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Mouse", 60m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
-                    { new Guid("70903fd0-a29e-45d6-95a8-4abd5c91beff"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "teclado mecânico", 15, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Teclado", 100m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
-                    { new Guid("7cbb1134-114d-48f9-8981-2504292ff095"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "Monitor curso 27", 28, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Monitor", 780m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
-                    { new Guid("b751c2c9-a918-40f0-a627-e698ab305787"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "Personal Computer", 100, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Computador", 5000m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") }
+                    { new Guid("203e4ce7-d0b6-4a78-bab6-59740d70940d"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "Personal Computer", 100, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Computador", 5000m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
+                    { new Guid("7095ea8f-86a2-4f4a-94e7-e99affee9f8d"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "mouse com fio", 20, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Mouse", 60m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
+                    { new Guid("870d9b8f-fd45-456c-b830-487319d8363e"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "Monitor curso 27", 28, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Monitor", 780m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") },
+                    { new Guid("bf50aa0a-673f-40d6-86ac-17a3bd1e65b5"), new Guid("7b87817f-f13c-4a68-87c5-0fc28eda22ce"), "teclado mecânico", 15, "00000000-0000-0000-0000-000000000000_imagem.jpg", "Teclado", 100m, new Guid("f96e5735-7f8a-49a7-8fe1-64304e70257d") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -334,7 +334,6 @@ namespace Kruger.Marketplace.Data.Migrations
                 .Annotation("SqlServer:FillFactor", 80);
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
