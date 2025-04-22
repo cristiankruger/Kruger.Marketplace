@@ -14,7 +14,7 @@ namespace Kruger.Marketplace.Application.Configurations
     [ExcludeFromCodeCoverage]
     public static class MvcConfig
     {
-        #region IServiceCollection
+        #region WebApplicationBuilder
         public static WebApplicationBuilder MvcBehaviorConfig(this WebApplicationBuilder builder)
         {
             builder.Configuration
@@ -33,14 +33,7 @@ namespace Kruger.Marketplace.Application.Configurations
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 MvcOptionsConfig.ConfigureModelBindingMessages(options.ModelBindingMessageProvider);
-            });
-
-            builder.Services.AddCookiePolicy(options =>
-            {
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-                options.ConsentCookieValue = "true";
-            });
+            });            
 
             builder.Services.AddAuthorization();
             
@@ -53,7 +46,7 @@ namespace Kruger.Marketplace.Application.Configurations
         #endregion
 
         #region WebApplication
-        public static IApplicationBuilder UseMvcConfiguration(this WebApplication app)
+        public static WebApplication UseMvcConfiguration(this WebApplication app)
         {
             if (app.Environment.IsDevelopment())
             {
@@ -69,7 +62,6 @@ namespace Kruger.Marketplace.Application.Configurations
             app.UseGlobalizationConfig()
                .UseHttpsRedirection()
                .UseStaticFiles()
-               .UseCookiePolicy()
                .UseRouting()
                .UseAuthentication()
                .UseAuthorization();
