@@ -41,15 +41,15 @@ namespace Kruger.Marketplace.API.Controllers
             return CustomResponse(HttpStatusCode.BadRequest);
         }
 
-        protected ActionResult CustomResponse(HttpStatusCode statusCode, object result = null, object createdObj = null, object createdObjId = null)
+        protected ActionResult CustomResponse(HttpStatusCode statusCode, object result = null)
         {
             return statusCode switch
             {
                 HttpStatusCode.OK => Ok(new { success = true, data = result }),
-                HttpStatusCode.Created => CreatedAtAction("GetById", new { success = true, id = createdObjId }, createdObj),
+                HttpStatusCode.Created => CreatedAtAction("GetById", new { success = true, id = GetObjectId(result) }, result),
                 HttpStatusCode.NoContent => NoContent(),
-                HttpStatusCode.NotFound => NotFound(new { success = false, errors = _notificador.TemNotificacao() ? _notificador.ObterNotificacoes().Select(n => n.Mensagem) : result }),
-                HttpStatusCode.BadRequest => BadRequest(new { success = false, errors = _notificador.TemNotificacao() ? _notificador.ObterNotificacoes().Select(n => n.Mensagem) : result }),
+                HttpStatusCode.NotFound => NotFound(new { success = false, errors = SetErrors(result) }),
+                HttpStatusCode.BadRequest => BadRequest(new { success = false, errors = SetErrors(result) }),
                 _ => throw new NotImplementedException($"Status code {statusCode} não implementado."),
             };
         }
@@ -78,5 +78,17 @@ namespace Kruger.Marketplace.API.Controllers
         {
             _notificador.Handle(new Notificacao(errorMessage));
         }
+
+        private Guid GetObjectId(object result)
+        {
+            dynamic d = result;
+            return (Guid)d.Id;
+        }
+
+        private object SetErrors(object result)
+        {
+            return _notificador.TemNotificacao() ? _notificador.ObterNotificacoes().Select(n => n.Mensagem) : result;
+        }
     }
 }
+

@@ -92,7 +92,7 @@ namespace Kruger.Marketplace.API.Controllers
             
             await SaveChanges(produtoViewModel.Id);
 
-            return CustomResponse(HttpStatusCode.Created, null, produtoViewModel, produtoViewModel.Id);
+            return CustomResponse(HttpStatusCode.Created, produtoViewModel);
         }
 
         [HttpPut("{id:guid}")]
