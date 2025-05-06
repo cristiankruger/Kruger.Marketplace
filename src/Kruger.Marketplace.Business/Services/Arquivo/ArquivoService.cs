@@ -33,12 +33,12 @@ namespace Kruger.Marketplace.Business.Services.Arquivo
                 return true;
 
             if (file.Length == 0)
-            {
-                NotificarError("Arquivo Corrompido ou vazio.");
-                return false;
-            }
+                return NotificarError("Arquivo Corrompido ou vazio.");
 
             var filePath = $"{_environment.WebRootPath}{_arquivoSettings.BasePath.Replace("~",string.Empty)}{fileName}";
+
+            if (File.Exists(filePath))
+                return NotificarError("Já existe um arquivo com este nome.");
 
             using Stream fileStream = new FileStream(filePath, FileMode.Create);
 

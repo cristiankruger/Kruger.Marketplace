@@ -33,7 +33,7 @@ namespace Kruger.Marketplace.API.Controllers
         {
             _mapper = mapper;
             _produtoService = produtoService;
-            _arquivoSettings = arquivoSettings.Value;        
+            _arquivoSettings = arquivoSettings.Value;
         }
 
 
@@ -56,7 +56,7 @@ namespace Kruger.Marketplace.API.Controllers
                                                                                                     filter.PageSize,
                                                                                                     filter.Desc))
             };
-            
+
             return CustomResponse(HttpStatusCode.OK, paged);
         }
 
@@ -89,10 +89,10 @@ namespace Kruger.Marketplace.API.Controllers
 
             if (!await _produtoService.Add(_mapper.Map<Produto>(produtoViewModel)))
                 return CustomResponse(HttpStatusCode.BadRequest);
-            
+
             await SaveChanges(produtoViewModel.Id);
 
-            return CustomResponse(HttpStatusCode.Created, null, produtoViewModel, produtoViewModel.Id);
+            return CustomResponse(HttpStatusCode.Created, produtoViewModel);
         }
 
         [HttpPut("{id:guid}")]

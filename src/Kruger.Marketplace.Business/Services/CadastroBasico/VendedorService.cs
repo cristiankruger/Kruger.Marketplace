@@ -49,7 +49,7 @@ namespace Kruger.Marketplace.Business.Services.CadastroBasico
             if (!isInsert) expression = expression.And(m => m.Id != vendedor.Id);
 
             if (_vendedorRepository.Search(expression).Result.Any())
-                return NotificarError("Vendedor já cadastrada.");
+                return NotificarError("Vendedor já cadastrado.");
 
             return true;
         }
