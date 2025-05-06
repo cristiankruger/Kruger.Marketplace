@@ -74,7 +74,7 @@ namespace Kruger.Marketplace.API.Controllers
 
             await SaveChanges(categoriaViewModel.Id);
 
-            return CustomResponse(HttpStatusCode.Created, null, categoriaViewModel, categoriaViewModel.Id);
+            return CustomResponse(HttpStatusCode.Created, categoriaViewModel);
         }
 
         [HttpPut("{id:guid}")]
