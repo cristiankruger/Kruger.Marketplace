@@ -96,9 +96,9 @@ No arquivo `appsettings.json`, configure a string de conexão do SQL Server (cas
 
 Execute o projeto para que a configuração do Seed crie o banco e popule com os dados básicos.
 
-**:exclamation: As Migrations são aplicadas de forma automática através do método de extensão `MigrateDatabase() => src/Kruger.Marketplace.Application/Configurations/DatabaseConfig.cs`;**
-**:exclamation: Uma carga inicial é feita na base de dados através do método `OnModelCreating() => src/Kruger.Marketplace.Data/Context/AppDbContext.cs`, com base no método `Seed(modelBuilder) => src/Kruger.Marketplace.Data/Seed/DeedDatabase.cs`;**
-**:exclamation: Credenciais default do banco: usuário &rarr; `teste@teste.com` | senha &rarr; `@Aa12345`**
+**:warning: As Migrations são aplicadas de forma automática através do método de extensão `MigrateDatabase() => src/Kruger.Marketplace.Application/Configurations/DatabaseConfig.cs`;**<br>
+**:warning: Uma carga inicial é feita na base de dados através do método `OnModelCreating() => src/Kruger.Marketplace.Data/Context/AppDbContext.cs`, com base no método `Seed(modelBuilder) => src/Kruger.Marketplace.Data/Seed/DeedDatabase.cs`;**<br>
+**:warning: Credenciais default do banco: usuário &rarr; `teste@teste.com` | senha &rarr; `@Aa12345`**<br>
 
 
 ####  Executar a Aplicação MVC:
@@ -107,26 +107,26 @@ Execute o projeto para que a configuração do Seed crie o banco e popule com os
 cd src/Kruger.Marketplace.MVC/
 dotnet run --environment=Development
 ```
-**:exclamation: Abra o browser e acesse a aplicação em: http://localhost:5288**
+**Abra o browser e acesse a aplicação em: http://localhost:5288**
 
 ####  Executar a API:
 ```
 cd src/Kruger.Marketplace.Api/
 dotnet run --environment=Development
 ```
-**:exclamation: Abra o browser e acesse a documentação da API em: http://localhost:5187/swagger**
+**Abra o browser e acesse a documentação da API em: http://localhost:5187/swagger**
   
 # :gear: 7. Instruções de Configuração
 
-**:exclamation: JWT para API:** As chaves de configuração do JWT estão no appsettings.json.
+**JWT para API:** As chaves de configuração do JWT estão no appsettings.json.
 
-**:exclamation: Migrações do Banco de Dados:** As migrações são gerenciadas pelo Entity Framework Core (Não é necessário aplicar o comando update-database devido a configuração do projeto)
+**Migrações do Banco de Dados:** As migrações são gerenciadas pelo Entity Framework Core (Não é necessário aplicar o comando update-database devido a configuração do projeto)
 
 # :gear: 8. Documentação da API
 
 A documentação da API está disponível através do Swagger. Após iniciar a API, acesse a documentação em através do link [http://localhost:5187/swagger](http://localhost:5187/swagger)
 
-**:exclamation: Obs.: Em ambientes não `development`, é necessário informar usuario e senha para expor a página do swagger, devido à implementação do securityMiddleware. Por default, essas credenciais são `admin` e `123` e podem ser alteradas através do nó `AppCredentials` no `appsettings.[ambiente].json`**
+**:warning: Obs.: Em ambientes não `development`, é necessário informar usuario e senha para expor a página do swagger, devido à implementação do securityMiddleware. Por default, essas credenciais são `admin` e `123` e podem ser alteradas através do nó `AppCredentials` no `appsettings.[ambiente].json`**
 
 # :gear: 9. Avaliação
 
