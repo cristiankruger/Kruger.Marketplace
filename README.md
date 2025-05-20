@@ -15,17 +15,17 @@ Cristian Kruger
 
 ## O projeto consiste em:
 
-- **:heavy_check_mark: Aplicação MVC:** Interface web para interação com o marketplace com uso do (.Net8).
+**:heavy_check_mark: Aplicação MVC:** Interface web para interação com o marketplace com uso do (.Net8).<br>
 
-- **:heavy_check_mark: API RESTful:** Exposição dos recursos do marketplace para integração com outras aplicações ou desenvolvimento de front-ends alternativos (.Net8).
+**:heavy_check_mark: API RESTful:** Exposição dos recursos do marketplace para integração com outras aplicações ou desenvolvimento de front-ends alternativos (.Net8).<br>
 
-- **:heavy_check_mark: Autenticação e Autorização:** Implementação do ASP.NET Identity para diferenciar usuários autenticados e não autenticados.
+**:heavy_check_mark: Autenticação e Autorização:** Implementação do ASP.NET Identity para diferenciar usuários autenticados e não autenticados.<br>
 
-- **:heavy_check_mark: Camada Application:** Camada para reaproveitamento de código que seria duplicado tanto pelo MVC quanto pela API (ViewModel, Injeção de dependência e outras Configurações).
+**:heavy_check_mark: Camada Application:** Camada para reaproveitamento de código que seria duplicado tanto pelo MVC quanto pela API (ViewModel, Injeção de dependência e outras Configurações).<br>
 
-- **:heavy_check_mark: Camada Business:** Aplicação de regras de negócio utilizando o FluentValidation e boas práticas de desenvolvimento (SOLID).
+**:heavy_check_mark: Camada Business:** Aplicação de regras de negócio utilizando o FluentValidation e boas práticas de desenvolvimento (SOLID).<br>
 
-- **:heavy_check_mark: Acesso Data:** Implementação de acesso ao banco de dados através do ORM Entity Framework Core.
+**:heavy_check_mark: Acesso Data:** Implementação de acesso ao banco de dados através do ORM Entity Framework Core.<br>
 
 ---
 # :gear: 3. Tecnologias Utilizadas:
