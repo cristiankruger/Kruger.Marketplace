@@ -30,23 +30,23 @@ Cristian Kruger
 ---
 # :gear: 3. Tecnologias Utilizadas:
 
-:black_medium_square: Linguagem de Programação: C#
-:black_medium_square: Frameworks e pacotes:
-  :black_medium_small_square: ASP.NET Core MVC
-  :black_medium_small_square: ASP.NET Core Web API
-  :black_medium_small_square: Entity Framework Core
-  :black_medium_small_square: FluentValidation
-  :black_medium_small_square: Automapper
-  :black_medium_small_square: Padrão Repository
-:black_medium_square: Banco de Dados: SQL Server/SQLite
-:black_medium_square: Autenticação e Autorização:
-  :black_medium_small_square: ASP.NET Core Identity
-  :black_medium_small_square: JWT (JSON Web Token) para autenticação na API
-:black_medium_square: Front-end:
-  :black_medium_small_square: Razor Pages/Views
-  :black_medium_small_square: HTML/CSS/Bootstrap para estilização básica
-:black_medium_square: Documentação da API: Swagger
-:black_medium_square: Coleção Postman para testes da API  
+:black_medium_square: Linguagem de Programação: C#<br>
+:black_medium_square: Frameworks e pacotes:<br>
+  :black_medium_small_square: ASP.NET Core MVC<br>
+  :black_medium_small_square: ASP.NET Core Web API<br>
+  :black_medium_small_square: Entity Framework Core<br>
+  :black_medium_small_square: FluentValidation<br>
+  :black_medium_small_square: Automapper<br>
+  :black_medium_small_square: Padrão Repository<br>
+:black_medium_square: Banco de Dados: SQL Server/SQLite<br>
+:black_medium_square: Autenticação e Autorização:<br>
+  :black_medium_small_square: ASP.NET Core Identity<br>
+  :black_medium_small_square: JWT (JSON Web Token) para autenticação na API<br>
+:black_medium_square: Front-end:<br>
+  :black_medium_small_square: Razor Pages/Views<br>
+  :black_medium_small_square: HTML/CSS/Bootstrap para estilização básica<br>
+:black_medium_square: Documentação da API: Swagger<br>
+:black_medium_square: Coleção Postman para testes da API<br>
 
 # :gear: 4. Estrutura do Projeto:
 ##  A estrutura do projeto é organizada da seguinte forma:
