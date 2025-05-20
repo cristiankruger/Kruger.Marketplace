@@ -30,23 +30,23 @@ Cristian Kruger
 ---
 # :gear: 3. Tecnologias Utilizadas:
 
-- Linguagem de Programação: C#
-- Frameworks e pacotes:
-  - ASP.NET Core MVC
-  - ASP.NET Core Web API
-  - Entity Framework Core
-  - FluentValidation
-  - Automapper
-  - Padrão Repository
-- Banco de Dados: SQL Server/SQLite
-- Autenticação e Autorização:
-  - ASP.NET Core Identity
-  - JWT (JSON Web Token) para autenticação na API
-- Front-end:
-  - Razor Pages/Views
-  - HTML/CSS/Bootstrap para estilização básica
-- Documentação da API: Swagger
-- Coleção Postman para testes da API  
+:black_medium_square: Linguagem de Programação: C#
+:black_medium_square: Frameworks e pacotes:
+  :black_medium_small_square: ASP.NET Core MVC
+  :black_medium_small_square: ASP.NET Core Web API
+  :black_medium_small_square: Entity Framework Core
+  :black_medium_small_square: FluentValidation
+  :black_medium_small_square: Automapper
+  :black_medium_small_square: Padrão Repository
+:black_medium_square: Banco de Dados: SQL Server/SQLite
+:black_medium_square: Autenticação e Autorização:
+  :black_medium_small_square: ASP.NET Core Identity
+  :black_medium_small_square: JWT (JSON Web Token) para autenticação na API
+:black_medium_square: Front-end:
+  :black_medium_small_square: Razor Pages/Views
+  :black_medium_small_square: HTML/CSS/Bootstrap para estilização básica
+:black_medium_square: Documentação da API: Swagger
+:black_medium_square: Coleção Postman para testes da API  
 
 # :gear: 4. Estrutura do Projeto:
 ##  A estrutura do projeto é organizada da seguinte forma:
