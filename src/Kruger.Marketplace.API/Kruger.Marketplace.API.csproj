@@ -18,10 +18,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.15" />
 		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
-	  <ProjectReference Include="..\Kruger.Marketplace.Application\Kruger.Marketplace.Application.csproj" />
-	  <ProjectReference Include="..\Kruger.Marketplace.Business\Kruger.Marketplace.Business.csproj" />
+	  <ProjectReference Include="..\Kruger.MarketPlace.Core\Kruger.Marketplace.Core.csproj" />
 	</ItemGroup>
 	
 	<ItemGroup>

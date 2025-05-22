@@ -1,4 +1,4 @@
-using Kruger.Marketplace.Application.Configurations;
+using Kruger.Marketplace.Core.Application.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
