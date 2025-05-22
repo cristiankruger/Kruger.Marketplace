@@ -1,9 +1,9 @@
-﻿using Kruger.Marketplace.Business.Interfaces.Notificador;
-using Kruger.Marketplace.Business.Interfaces.Services.CadastroBasico;
-using Kruger.Marketplace.Business.Models.CadastroBasico;
-using Kruger.Marketplace.Business.Models.Settings;
-using Kruger.Marketplace.Application.App;
-using Kruger.Marketplace.Application.ViewModels.Auth;
+﻿using Kruger.Marketplace.Core.Business.Interfaces.Notificador;
+using Kruger.Marketplace.Core.Business.Interfaces.Services.CadastroBasico;
+using Kruger.Marketplace.Core.Business.Models.CadastroBasico;
+using Kruger.Marketplace.Core.Business.Models.Settings;
+using Kruger.Marketplace.Core.Application.App;
+using Kruger.Marketplace.Core.Application.ViewModels.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +13,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
+using Kruger.Marketplace.Core.Application.App;
 
 namespace Kruger.Marketplace.API.Controllers
 {

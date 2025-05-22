@@ -35,8 +35,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Kruger.Marketplace.Application\Kruger.Marketplace.Application.csproj" />
-	  <ProjectReference Include="..\Kruger.Marketplace.Data\Kruger.Marketplace.Data.csproj" />
+	  <ProjectReference Include="..\Kruger.MarketPlace.Core\Kruger.Marketplace.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
