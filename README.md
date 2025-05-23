@@ -96,7 +96,7 @@ No arquivo `appsettings.json`, configure a string de conexão do SQL Server (cas
 Execute o projeto para que a configuração do Seed crie o banco e popule com os dados básicos.
 
 **:warning: As Migrations são aplicadas de forma automática através do método de extensão `MigrateDatabase() => src/Kruger.Marketplace.Core/Application/Configurations/DatabaseConfig.cs`;**<br>
-**:warning: Uma carga inicial é feita na base de dados através do método `OnModelCreating() => src/Kruger.Marketplace.Core/Data/Context/AppDbContext.cs`, com base no método `Seed(modelBuilder) => src/Kruger.Marketplace.Core.Data/Seed/DeedDatabase.cs`;**<br>
+**:warning: Uma carga inicial é feita na base de dados através do método `OnModelCreating() => src/Kruger.Marketplace.Core/Data/Context/AppDbContext.cs`, com base no método `Seed(modelBuilder) => src/Kruger.Marketplace.Core/Data/Seed/SeedDatabase.cs`;**<br>
 **:warning: Credenciais default do banco: usuário &rarr; `teste@teste.com` | senha &rarr; `@Aa12345`**<br>
 
 ####  Executar a Aplicação MVC:
