@@ -1,5 +1,5 @@
 ﻿mode: Mainline
-next-version: 1.6.2
+next-version: 1.6.3
 branches: 
   develop: 
     tag: Prerelease

@@ -47,18 +47,16 @@ Cristian Kruger
 # :gear: 4. Estrutura do Projeto:
 ##  A estrutura do projeto é organizada da seguinte forma:
 ```
-|-- docs/
-|   |-- postman/                 → Coleção postman com requisições para API
-|-- sql/ 
+|-- docs
+|   |-- postman                  → Coleção postman com requisições para API
+|-- sql
 |   |-- script_marketplace.sql   → Script idempotente do banco de dados (exclusivo SQL Server)
-|-- src/
-|   |-- Kruger.Marketplace.Api/  → API RESTful.
-|   |-- Kruger.Marketplace.MVC/  → Projeto MVC.
-|   |-- Kruger.Marketplace.Core/
-|       |-- Application/         → Configuração de ViewModels consumidas pela API e MVC e Configurações communs aos projetos MVC e API.
-|   |-- Kruger.Marketplace.Core/
-|       |-- Business/            → Mapeamento das entidades, Aplicação de validações e regras de negócio seguindo as boas práticas do SOLID.
-|   |-- Kruger.Marketplace.Core/
+|-- src
+|   |-- Kruger.Marketplace.Api   → API RESTful.
+|   |-- Kruger.Marketplace.MVC   → Projeto MVC.
+|   |-- Kruger.Marketplace.Core
+|       |-- Application          → Configuração de ViewModels consumidas pela API e MVC e Configurações communs aos projetos MVC e API.
+|       |-- Business             → Mapeamento das entidades, Aplicação de validações e regras de negócio seguindo as boas práticas do SOLID.
 |       |-- Data/                → Mapeamento de Modelos de Dados, Configuração do EF Core e Seed do banco de dados (/Seed/SeedDatabase.cs).
 |-- .gitignore                   → Confguração de quais arquivos o Git não deve versionar.
 |-- FEEDBACK.md                  → Arquivo para Consolidação dos Feedbacks
